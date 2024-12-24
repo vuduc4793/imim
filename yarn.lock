@@ -7098,6 +7098,11 @@ react-native-notifications@^5.1.0:
   resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-5.1.0.tgz#8cba105fd57ab9d5df9d27284acf1e2b4f3d7ea3"
   integrity sha512-laqDSDlCvEASmJR6cXpqaryK855ejQd07vrfYERzhv68YDOoSkKy/URExRP4vAfAOVqHhix80tLbNUcfvZk2VQ==
 
+react-native-pager-view@^6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-pager-view/-/react-native-pager-view-6.6.1.tgz#6b69c8801ddee8d122b121b6fb42e0a180c8ebb9"
+  integrity sha512-2dFulYs8JxEUecemv1PGWCUv+ZQuwSaQfFiSr2++KH8km5HzpuS8vJ3MVb0M6UhpqacFDj9OGe7z97ks/mr7gA==
+
 react-native-popup-dialog@^0.18.3:
   version "0.18.3"
   resolved "https://registry.yarnpkg.com/react-native-popup-dialog/-/react-native-popup-dialog-0.18.3.tgz#5d7a13fd7d9f817cf2121965a3b100a257201b67"
@@ -7296,10 +7301,12 @@ react-test-renderer@19.0.0:
     react-is "^19.0.0"
     scheduler "^0.25.0"
 
-react@19.0.0:
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-19.0.0.tgz#6e1969251b9f108870aa4bff37a0ce9ddfaaabdd"
-  integrity sha512-V8AVnmPIICiWpGfm6GLzCR/W5FXLchHop40W4nXBmdlEceh16rCN8O8LNWm5bh5XUX91fh7KpA+W0TgMKmgTpQ==
+react@18.3.1:
+  version "18.3.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.3.1.tgz#49ab892009c53933625bd16b2533fc754cab2891"
+  integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
+  dependencies:
+    loose-envify "^1.1.0"
 
 readable-stream@^2.0.2, readable-stream@~2.3.6:
   version "2.3.8"
