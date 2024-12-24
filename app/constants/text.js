@@ -1,0 +1,21 @@
+export default texts = {
+  appName: "iMLM",
+  hasLaunch: "firstLaunch",
+  upperCaseAppName: "iMLM",
+  introduce: "Giới thiệu",
+  multiLevelSalesList: "Doanh nghiệp bán hàng đa cấp",
+  qAndA: "Hỏi & đáp",
+  contactInfo: "Thông tin liên hệ",
+  report: "Khiếu nại",
+  setting: "Cài đặt",
+  newUpdated: "Mới cập nhật",
+  noData: "Không có dữ liệu",
+  noSearchResult : "Không tìm thấy kết quả nào!",
+  luuYNhaPhanPhoi: "Lưu ý cho Nhà phân phối",
+  tinTucCanhBao: "Tin tức/Lưu ý",
+  phapLuatBHDC: "Pháp luật bán hàng đa cấp",
+  tiepNhanPhanAnh: "Tiếp nhận phản ánh, khiếu nại",
+  news: "Tin tức",
+  thankYouForYourComplaint: "Cảm ơn bạn đã gửi phản ánh/khiếu nại cho chúng tôi. Chúng tôi sẽ hồi đáp qua email sớm nhất có thể.",
+  thankYouForYourQuestion: "Cảm ơn bạn đã gửi câu hỏi cho chúng tôi. Chúng tôi sẽ hồi đáp qua email sớm nhất có thể."
+}
