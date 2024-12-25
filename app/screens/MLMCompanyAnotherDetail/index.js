@@ -11,16 +11,16 @@ import {
 } from 'react-native';
 import { MyStatusBar } from '../../components/MyStatusBar';
 
-import {Colors, Styles, Icons, Texts, AppDimensions} from "../../constants";
+import { Colors, Styles, Icons, Texts, AppDimensions } from "../../constants";
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
 
 import { changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow } from '../../redux/actions/settingUI';
-import {Image} from 'react-native-elements';
+import { Image } from 'react-native-elements';
 import HeaderSectionComponent from '../../components/HeaderSectionComponent';
 import styles from "./styles";
-import {Utils} from "../../helper";
-import { Table, Row, Rows, TableWrapper, Cell} from 'react-native-table-component';
+import { Utils } from "../../helper";
+import { Table, Row, Rows, TableWrapper, Cell } from 'react-native-table-component';
 import { getCompanyHoSo } from '../../services/api';
 import { parse } from 'fast-xml-parser';
 
@@ -31,15 +31,15 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
     this.state = {
       isShowAd: false,
       questionNumber: 1,
-      companyDataFromParent: props.navigation.getParam('companyData',''),
+      companyDataFromParent: props?.route?.params?.companyData || '',
       companyData: {},
       isSearch: false,
       keyword: "",
       isLoading: false,
-      title: props.navigation.getParam('title',''),
-      specificData : this.getSpecificData(props.navigation.getParam('title',''),props.navigation.getParam('companyData',''))
+      title: props?.route?.params?.title || '',
+      specificData: this.getSpecificData(props?.route?.params?.title || '', props?.route?.params?.companyData || '')
     };
-  
+
   }
 
   async componentDidMount() {
@@ -52,45 +52,45 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
 
     let self = this;
     let progressedData;
-    if (title === 'Hồ sơ cập nhật'){
+    if (title === 'Hồ sơ cập nhật') {
       progressedData = companyData.HoSoCapNhat;
-    } else if (title === 'Trụ sở chính/Chi nhánh/VP đại diện/Địa điểm kinh doanh'){
+    } else if (title === 'Trụ sở chính/Chi nhánh/VP đại diện/Địa điểm kinh doanh') {
       progressedData = companyData.TruSoChinh;
-    } else if (title === 'Thông tin người đại diện'){
+    } else if (title === 'Thông tin người đại diện') {
       progressedData = companyData.ThongTinNguoiDaiDien;
-    } else if (title === 'Thông tin chủ sở hữu'){
+    } else if (title === 'Thông tin chủ sở hữu') {
       progressedData = companyData.ThongTinChuSoHuu;
     }
-    if (Array.isArray(progressedData)){
-      progressedData= {
-          'null': progressedData
-        }
+    if (Array.isArray(progressedData)) {
+      progressedData = {
+        'null': progressedData
+      }
     }
-    let result= {};
+    let result = {};
     console.log('progressedData= ', JSON.stringify(progressedData));
 
-    Object.keys(progressedData).map(function(key) {
+    Object.keys(progressedData).map(function (key) {
       console.log('reach 61');
 
       result[key] = self.getTableData(progressedData[key]);
-      console.log("getTableData",JSON.stringify(result));
+      console.log("getTableData", JSON.stringify(result));
 
     });
-    console.log("result",JSON.stringify(result));
+    console.log("result", JSON.stringify(result));
     return result;
-    
+
   }
   getTableData = (data) => {
-    let tableHead =['STT'], tableData=[];
+    let tableHead = ['STT'], tableData = [];
     let self = this;
-    
+
     data.map((item, i) => {
       let rowData = [i];
-      Object.keys(item).map(function(itemKey) {
-        if (i===0){
+      Object.keys(item).map(function (itemKey) {
+        if (i === 0) {
           tableHead.push(self.convertKeyToVi(itemKey));
         }
-        
+
         rowData.push(item[itemKey]);
       })
       tableData.push(rowData);
@@ -100,37 +100,37 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
     }
   }
   convertKeyToVi = (key) => {
-    if (key === 'GiayChungNhanDangKyBHDC'){
+    if (key === 'GiayChungNhanDangKyBHDC') {
       return 'Giấy chứng nhận đăng ký hoạt động bán hàng đa cấp';
-    } else if (key === 'TenTep'){
+    } else if (key === 'TenTep') {
       return 'Tên tệp';
-    } else if (key === 'NgayGui'){
+    } else if (key === 'NgayGui') {
       return 'Ngày gửi';
-    } else if (key === 'QuyTacHoatDong'){
+    } else if (key === 'QuyTacHoatDong') {
       return 'Quy tắc hoạt động';
-    } else if (key === 'KeHoachTraThuong'){
+    } else if (key === 'KeHoachTraThuong') {
       return 'Kế hoạch trả thưởng';
-    } else if (key === 'ChuongTrinhDaoTao'){
+    } else if (key === 'ChuongTrinhDaoTao') {
       return 'Chương trình đào tạo';
-    } else if (key === 'HopDongBanHangDaCap'){
+    } else if (key === 'HopDongBanHangDaCap') {
       return 'Hợp đồng bán hàng đa cấp';
-    } else if (key === 'HangHoaKinhDoanhTheoPhuongThucDaCap'){
+    } else if (key === 'HangHoaKinhDoanhTheoPhuongThucDaCap') {
       return 'Hàng hóa kinh doanh theo phương thức đa cấp';
-    } else if (key === 'TruSoChinh'){
+    } else if (key === 'TruSoChinh') {
       return 'Trụ sở chính';
-    } else if (key === 'TenChiNhanh'){
+    } else if (key === 'TenChiNhanh') {
       return 'Tên chi nhánh';
-    } else if (key === 'TinhTrang'){
+    } else if (key === 'TinhTrang') {
       return 'Tình trạng';
-    } else if (key === 'ThongTin'){
+    } else if (key === 'ThongTin') {
       return 'Thông tin';
-    } else if (key === 'TinhThanh'){
+    } else if (key === 'TinhThanh') {
       return 'Tỉnh thành';
-    } else if (key === 'ThongTinChuSoHuuCaNhan'){
+    } else if (key === 'ThongTinChuSoHuuCaNhan') {
       return 'Thông tin chủ sở hữu cá nhân';
-    } else if (key === 'ThongTinChuSoHuuPhapNhan'){
+    } else if (key === 'ThongTinChuSoHuuPhapNhan') {
       return 'Thông tin chủ sở hữu pháp nhân';
-    } 
+    }
     return key;
   }
 
@@ -150,14 +150,14 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
       </View>
     );
   }
-  
+
   _goBack = () => {
     this.props.navigation.goBack();
   }
 
   renderHeader() {
     return (
-      <View style={[{ backgroundColor: Colors.colorPrimary },Styles.styleHeader]}>
+      <View style={[{ backgroundColor: Colors.colorPrimary }, Styles.styleHeader]}>
         <Header
           body={this.renderHeaderBody()}
           left={this.renderHeaderLeft()}
@@ -170,44 +170,44 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
   renderHeaderBody() {
     return (
       <View style={Styles.styleHeaderCenter}>
-        <Text style={[Styles.styleHeaderCenterText, {color: 'white'}]}
-        ellipsizeMode='tail'>
+        <Text style={[Styles.styleHeaderCenterText, { color: 'white' }]}
+          ellipsizeMode='tail'>
           {this.state.title}
         </Text>
       </View>
     );
   }
 
-  renderHeaderLeft() { 
+  renderHeaderLeft() {
     return (
       <View>
         <TouchableOpacity style={Styles.styleHeaderButtonTopLeft} onPress={this._goBack}>
-          <RNImage source={Icons.IC_BACK} style={[Styles.styleHeaderImageTopLeft, {tintColor: 'white'}]} />
+          <RNImage source={Icons.IC_BACK} style={[Styles.styleHeaderImageTopLeft, { tintColor: 'white' }]} />
         </TouchableOpacity>
       </View>
     );
   }
 
-  
+
   renderContent = () => {
-    let {companyData, companyDataFromParent, specificData} = this.state;
+    let { companyData, companyDataFromParent, specificData } = this.state;
     let self = this;
     const isHoSoCapNhat = this.state.title === 'Hồ sơ cập nhật';
     console.log('isHoSoCapNhat', isHoSoCapNhat);
     return (
-      <View style={{flex: 1, backgroundColor: Colors.backgroundNumberQuestion, alignItems: 'center'}}>
-        <View style={[Styles.sectionStyle] }>
-          <View style={{flexDirection:'column', alignItems: 'center'}}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{flex: 2, alignItems: 'center'}}>
+      <View style={{ flex: 1, backgroundColor: Colors.backgroundNumberQuestion, alignItems: 'center' }}>
+        <View style={[Styles.sectionStyle]}>
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flex: 2, alignItems: 'center' }}>
                 <Image
-                  style={{height: 60, width: 80, borderRadius: 5, resizeMode: 'contain',  }}
-                  source={{uri: `${companyData.logo}`}}
-                  PlaceholderContent={<Image source={Icons.IC_COMPANY} style={{height: 60, width: 80, borderRadius: 5, tintColor: Colors.headerSection, resizeMode: 'contain', }}/>}
-                  placeholderStyle={{backgroundColor: 'transparent'}}
+                  style={{ height: 60, width: 80, borderRadius: 5, resizeMode: 'contain', }}
+                  source={{ uri: `${companyData.logo}` }}
+                  PlaceholderContent={<Image source={Icons.IC_COMPANY} style={{ height: 60, width: 80, borderRadius: 5, tintColor: Colors.headerSection, resizeMode: 'contain', }} />}
+                  placeholderStyle={{ backgroundColor: 'transparent' }}
                 />
               </View>
-              <View style={{flex: 5, alignItems: 'flex-start', padding: 5, flexDirection: "column"}}>
+              <View style={{ flex: 5, alignItems: 'flex-start', padding: 5, flexDirection: "column" }}>
                 <View style={styles.subTextWrapper}>
                   <Image
                     source={Icons.IC_COMPANY}
@@ -225,64 +225,66 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
                 <View style={styles.subTextWrapper}>
                   <Image
                     source={Icons.IC_STATUS}
-                    style={{ width: 15, height: 14, resizeMode: "cover",marginRight: 10}}
+                    style={{ width: 15, height: 14, resizeMode: "cover", marginRight: 10 }}
                   />
-                  <Text style={[styles.subTitleTextStyle, {color: 'green'}]}>{companyDataFromParent.option}</Text>
+                  <Text style={[styles.subTitleTextStyle, { color: 'green' }]}>{companyDataFromParent.option}</Text>
                 </View>
 
               </View>
             </View>
-          </View>   
+          </View>
         </View>
         <ScrollView
-          style={{flex: 1}}
-          contentContainerStyle={{ alignItems: 'center', justifyContent: 'center',width:'100%'}}>
+          style={{ flex: 1 }}
+          contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
           {
-            Object.keys(specificData).map(function(key) {
-              console.log('specificData[key].tableHead ', key,'=', JSON.stringify(specificData[key].tableHead));
-              console.log('specificData[key].tableData ',key, '=',JSON.stringify(specificData[key].tableData));
+            Object.keys(specificData).map(function (key) {
+              console.log('specificData[key].tableHead ', key, '=', JSON.stringify(specificData[key].tableHead));
+              console.log('specificData[key].tableData ', key, '=', JSON.stringify(specificData[key].tableData));
               return (
-                <View style={[Styles.sectionStyle] }>
-                  { key !== 'null' && 
+                <View style={[Styles.sectionStyle]}>
+                  {key !== 'null' &&
                     (
-                      <HeaderSectionComponent 
-                        style={[Styles.headerSectionStyle, { width: "100%"}]}
-                        title={self.convertKeyToVi(key)}/>
+                      <HeaderSectionComponent
+                        style={[Styles.headerSectionStyle, { width: "100%" }]}
+                        title={self.convertKeyToVi(key)} />
                     )
                   }
-                  <View style={[styles.tableContainer, { alignItems:'center', justifyContent:'center'}]}>
-                    <Table style={{width: '100%'}}
-                       borderStyle={{borderWidth: 2, borderColor: '#c8e1ff'}}
-                  	>
-                      <Row 
-                        data={specificData[key].tableHead} 
+                  <View style={[styles.tableContainer, { alignItems: 'center', justifyContent: 'center' }]}>
+                    <Table style={{ width: '100%' }}
+                      borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}
+                    >
+                      <Row
+                        data={specificData[key].tableHead}
                         style={styles.tableHead} textStyle={styles.tableText}
-                        flexArr={[1,2,2,2]}
-                        />
+                        flexArr={[1, 2, 2, 2]}
+                      />
                       {
                         specificData[key].tableData.map((rowData, index) => (
-                          <TableWrapper 
+                          <TableWrapper
                             key={index}
-                            style={{width: '100%', flexDirection: 'row'}}
-                            borderStyle={{borderWidth: 2, 
-                            borderColor: '#c8e1ff'}}>
+                            style={{ width: '100%', flexDirection: 'row' }}
+                            borderStyle={{
+                              borderWidth: 2,
+                              borderColor: '#c8e1ff'
+                            }}>
                             {
                               rowData.map((cellData, cellIndex) => (
-                                <Cell key={cellIndex} 
-                                  data={ (isHoSoCapNhat && cellIndex === 2) ? 
-                                  (<TouchableOpacity 
-                                      onPress={()=>{
+                                <Cell key={cellIndex}
+                                  data={(isHoSoCapNhat && cellIndex === 2) ?
+                                    (<TouchableOpacity
+                                      onPress={() => {
                                         self.openLink(cellData);
-                                      }} 
-                                      style={{padding: 5}}>
-                                    <Text 
-                                      style={{color: Colors.colorPrimary, textDecorationLine: 'underline'}}>{cellData}
-                                    </Text>
-                                  </TouchableOpacity>)
-                                  : cellData} 
+                                      }}
+                                      style={{ padding: 5 }}>
+                                      <Text
+                                        style={{ color: Colors.colorPrimary, textDecorationLine: 'underline' }}>{cellData}
+                                      </Text>
+                                    </TouchableOpacity>)
+                                    : cellData}
                                   textStyle={styles.tableText}
-                                  style={cellIndex == 0 ? {flex: 1} : {flex: 2}}
-                                  />
+                                  style={cellIndex == 0 ? { flex: 1 } : { flex: 2 }}
+                                />
                               ))
                             }
                           </TableWrapper>
@@ -291,23 +293,23 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
                       {/* <Rows data={specificData[key].tableData} textStyle={styles.tableText}/> */}
                     </Table>
                   </View>
-                
+
                 </View>
-                
+
               )
             })
           }
-          
+
         </ScrollView>
-        <View style={{height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor:'transparent'}}/>
+        <View style={{ height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor: 'transparent' }} />
 
       </View>
     );
-  } 
-  _onClick = (item) => {
-    
   }
-  
+  _onClick = (item) => {
+
+  }
+
   openLink = (link) => {
     Linking.canOpenURL(link).then(supported => {
       if (supported) {
@@ -315,36 +317,36 @@ class MLMCompanyAnotherDetail extends React.PureComponent {
       } else {
         console.log("Don't know how to open URI: " + link);
       }
-    }).catch(err=>{
-      console.log("openLink err: " , link, ' ',err);
+    }).catch(err => {
+      console.log("openLink err: ", link, ' ', err);
     });
   }
 
   getData() {
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     getCompanyHoSo(this.state.companyDataFromParent.id).then((response) => {
       console.log('CompanyAnotherDetail getData response', JSON.stringify(response));
-      return response.data 
+      return response.data
     }).then((textResponse) => {
       let obj = parse(textResponse);
-      
-      if (obj['soap:Envelope'] 
-          && obj['soap:Envelope']['soap:Body'] 
-          && obj['soap:Envelope']['soap:Body']['VccaDNBHDCHosoResponse'] 
-          && obj['soap:Envelope']['soap:Body']['VccaDNBHDCHosoResponse']['VccaDNBHDCHosoResult']) {
-            var result = obj['soap:Envelope']['soap:Body']['VccaDNBHDCHosoResponse']['VccaDNBHDCHosoResult']
-            let data = JSON.parse(result)
-            console.log('CompanyAnotherDetail getData data', JSON.stringify(data))
-            this.setState({
-              companyData: data,
-              isLoading: false
-            })
+
+      if (obj['soap:Envelope']
+        && obj['soap:Envelope']['soap:Body']
+        && obj['soap:Envelope']['soap:Body']['VccaDNBHDCHosoResponse']
+        && obj['soap:Envelope']['soap:Body']['VccaDNBHDCHosoResponse']['VccaDNBHDCHosoResult']) {
+        var result = obj['soap:Envelope']['soap:Body']['VccaDNBHDCHosoResponse']['VccaDNBHDCHosoResult']
+        let data = JSON.parse(result)
+        console.log('CompanyAnotherDetail getData data', JSON.stringify(data))
+        this.setState({
+          companyData: data,
+          isLoading: false
+        })
       }
     }).catch(err => {
       console.log('CompanyAnotherDetail getData error', err);
       Alert.alert("Thông báo", err.message)
     });
-    
+
   }
 }
 function mapStateToProps(state) {

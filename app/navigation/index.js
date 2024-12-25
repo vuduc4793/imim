@@ -1,6 +1,5 @@
-
-import {createStackNavigator, addNavigationHelpers, createAppContainer } from 'react-navigation';
-// import { createStackNavigator, createAppContainer } from '@react-navigation/stack';
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 import SplashScreen from '../screens/SplashScreen';
 import QAndADetailScreen from '../screens/QAndADetailScreen';
@@ -41,55 +40,46 @@ import SettingScreen from '../screens/SettingScreen'
 import NotificationScreen from '../screens/NotificationScreen'
 
 console.disableYellowBox = true;
-import { fromRight } from 'react-navigation-transitions';
 
-const AppNavigator = createStackNavigator(
-  {
-  Splash: { screen: SplashScreen },
-  Home: { screen: HomeScreen },
-  QAndADetail: {screen: QAndADetailScreen },
-  QAndA: {screen: QAndAScreen },
-  AboutUs: {screen: AboutUsScreen},
-  PDFViewer: {screen: PDFViewerScreen },
-  WebViewScreen: {screen: WebViewScreen},
-  ReportScreen: {screen: ReportScreen},
-  MLMCompanyList:{screen:MLMCompanyList},
-  NewsAndAlert: {screen: NewsAndAlertScreen},
-  MLMLawList: {screen: MLMLawListScreen},
-  MLMLaw: {screen: MLMLawScreen},
-  MLMLawDetail: {screen: MLMLawDetailScreen},
-  AgentNotice: {screen: AgentNoticeScreen},
 
-  AboutUsiOS: {screen: AboutUsiOSScreen},
-  MLMCompanyDetailCenter: {screen: MLMCompanyDetailCenter},
-  MLMCompanyCommonDetail: {screen: MLMCompanyCommonDetail},
-  MLMCompanyAnotherDetail: {screen: MLMCompanyAnotherDetail},
-  MLMCompanyComment: {screen: MLMCompanyComment},
-  MLMCompanyFile: {screen: MLMCompanyFile},
-  MLMCompanyAgency: {screen: MLMCompanyAgency},
-  MLMCompanyOwner: {screen: MLMCompanyOwner},
-  MLMCompanyRepresentative: {screen: MLMCompanyRepresentative},
+const Stack = createStackNavigator();
 
-  YoutubeScreen: {screen: YoutubeScreen},
-  ListNews: {screen: ListNews},
-  NewsDetail: {screen: NewsDetail},
-  PostQuestionScreen: {screen: PostQuestionScreen},
-
-  MLMCompanySuggest: {screen: MLMCompanySuggest},
-  SettingScreen: {screen: SettingScreen},
-  NotificationScreen: {screen: NotificationScreen}
-},
-  {
-    headerMode: 'none',
-    mode: 'modal',
-    defaultNavigationOptions: {
-      gesturesEnabled: false,
-      gestureDirection: 'inverted'
-    },
-    transitionConfig: () => fromRight()
-  }
-);
-
-const AppContainer = createAppContainer(AppNavigator);
+function AppContainer() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+        <Stack.Screen name={"Home"} component={HomeScreen} />
+        <Stack.Screen name={"QAndADetail"} component={QAndADetailScreen} />
+        <Stack.Screen name={"QAndA"} component={QAndAScreen} />
+        <Stack.Screen name={"AboutUs"} component={AboutUsScreen} />
+        <Stack.Screen name={"PDFViewer"} component={PDFViewerScreen} />
+        <Stack.Screen name={"WebViewScreen"} component={WebViewScreen} />
+        <Stack.Screen name={"ReportScreen"} component={ReportScreen} />
+        <Stack.Screen name={"MLMCompanyList"} component={MLMCompanyList} />
+        <Stack.Screen name={"NewsAndAlert"} component={NewsAndAlertScreen} />
+        <Stack.Screen name={"MLMLawList"} component={MLMLawListScreen} />
+        <Stack.Screen name={"MLMLaw"} component={MLMLawScreen} />
+        <Stack.Screen name={"MLMLawDetail"} component={MLMLawDetailScreen} />
+        <Stack.Screen name={"AgentNotice"} component={AgentNoticeScreen} />
+        <Stack.Screen name={"AboutUsiOS"} component={AboutUsiOSScreen} />
+        <Stack.Screen name={"MLMCompanyDetailCenter"} component={MLMCompanyDetailCenter} />
+        <Stack.Screen name={"MLMCompanyCommonDetail"} component={MLMCompanyCommonDetail} />
+        <Stack.Screen name={"MLMCompanyAnotherDetail"} component={MLMCompanyAnotherDetail} />
+        <Stack.Screen name={"MLMCompanyComment"} component={MLMCompanyComment} />
+        <Stack.Screen name={"MLMCompanyFile"} component={MLMCompanyFile} />
+        <Stack.Screen name={"MLMCompanyAgency"} component={MLMCompanyAgency} />
+        <Stack.Screen name={"MLMCompanyOwner"} component={MLMCompanyOwner} />
+        <Stack.Screen name={"MLMCompanyRepresentative"} component={MLMCompanyRepresentative} />
+        <Stack.Screen name={"YoutubeScreen"} component={YoutubeScreen} />
+        <Stack.Screen name={"ListNews"} component={ListNews} />
+        <Stack.Screen name={"NewsDetail"} component={NewsDetail} />
+        <Stack.Screen name={"PostQuestionScreen"} component={PostQuestionScreen} />
+        <Stack.Screen name={"MLMCompanySuggest"} component={MLMCompanySuggest} />
+        <Stack.Screen name={"SettingScreen"} component={SettingScreen} />
+        <Stack.Screen name={"NotificationScreen"} component={NotificationScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 export default AppContainer;

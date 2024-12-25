@@ -8,8 +8,9 @@ import {
   TextInput,
   Linking,
   ActivityIndicator,
-  AsyncStorage
+  // AsyncStorage
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MyStatusBar } from '../../components/MyStatusBar';
 
 import {Colors, Styles, Icons, Texts, Jsons, Numbering, AppDimensions} from "../../constants";

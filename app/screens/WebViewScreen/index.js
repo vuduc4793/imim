@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { MyStatusBar } from '../../components/MyStatusBar';
 
-import {Colors, Styles, Icons, Texts, AppDimensions} from "../../constants";
+import { Colors, Styles, Icons, Texts, AppDimensions } from "../../constants";
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import styles from "./styles";
@@ -25,13 +25,13 @@ class WebViewScreen extends React.PureComponent {
     let newsLink = 'http://bhdc.vcca.gov.vn/?page=news&do=browse&category_id=fc296b89-976b-43d5-9a3d-00bf70b19567&current_id=73d30c5a-c8e6-4d75-b1d1-97a8d8ead14e3'
     this.state = {
       isATab: props.navigation ? false : true,
-      link: props.navigation ? props.navigation.getParam('link',newsLink) : (props.link ? props.link : newsLink),
-      title: props.navigation ? props.navigation.getParam('title',Texts.tinTucCanhBao) : (props.title ? props.title : Texts.tinTucCanhBao),
+      link: props.navigation ? props?.route?.params?.link || newsLink : (props.link ? props.link : newsLink),
+      title: props.navigation ? props?.route?.params?.title || Texts.tinTucCanhBao : (props.title ? props.title : Texts.tinTucCanhBao),
       isLoading: true
     };
   }
-  componentDidMount(){
-   
+  componentDidMount() {
+
   }
 
 
@@ -43,12 +43,12 @@ class WebViewScreen extends React.PureComponent {
         {this.renderContent()}
         {
           this.state.isLoading &&
-            <ActivityIndicator
-              style={Styles.activityIndicatorStyle}
-              size="large" 
-              color={colors.colorPrimary}
-            />
-          }
+          <ActivityIndicator
+            style={Styles.activityIndicatorStyle}
+            size="large"
+            color={colors.colorPrimary}
+          />
+        }
       </View>
     );
   }
@@ -59,7 +59,7 @@ class WebViewScreen extends React.PureComponent {
 
   renderHeader() {
     return (
-      <View style={[{ backgroundColor: Colors.colorPrimary },Styles.styleHeader]}>
+      <View style={[{ backgroundColor: Colors.colorPrimary }, Styles.styleHeader]}>
         <Header
           body={this.renderHeaderBody()}
           left={this.renderHeaderLeft()}
@@ -72,7 +72,7 @@ class WebViewScreen extends React.PureComponent {
   renderHeaderBody() {
     return (
       <View style={Styles.styleHeaderCenter}>
-        <Text style={[Styles.styleHeaderCenterText, {color: 'white'}]}>
+        <Text style={[Styles.styleHeaderCenterText, { color: 'white' }]}>
           {this.state.title}
         </Text>
       </View>
@@ -92,31 +92,31 @@ class WebViewScreen extends React.PureComponent {
   renderContent = () => {
     let self = this;
     return (
-      <View style={{ flex: 1,margin: 10 }}>
-         <WebView 
+      <View style={{ flex: 1, margin: 10 }}>
+        <WebView
           source={{ uri: this.state.link }}
-          onLoadEnd={()=>{
-            setTimeout(()=>{
-              self.setState({isLoading: false})
+          onLoadEnd={() => {
+            setTimeout(() => {
+              self.setState({ isLoading: false })
             }, 2000);
           }}
-          onError={()=>{
-            this.setState({isLoading: false});
+          onError={() => {
+            this.setState({ isLoading: false });
             Alert.alert(
               "Thông báo",
               "Không thể tải trang!",
               [
-                {text: 'OK', onPress: () => {}},
+                { text: 'OK', onPress: () => { } },
               ],
-              {cancelable: false},
+              { cancelable: false },
             );
-            }}
+          }}
           mediaPlaybackRequiresUserAction={true}
-          />
+        />
       </View>
-      
+
     );
-  } 
+  }
 }
 
 function mapStateToProps(state) {

@@ -1,4 +1,5 @@
-import { AsyncStorage } from 'react-native';
+// import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Jsons } from '../constants';
 
 export const ABOUT_US = "ABOUT_US";
@@ -6,7 +7,7 @@ export const LUU_Y_NHA_PHAN_PHOI = "LUU_Y_NHA_PHAN_PHOI";
 
 export const saveData = async (key, value) => {
   try {
-    await AsyncStorage.setItem(key, value+'');
+    await AsyncStorage.setItem(key, value + '');
   } catch (error) {
     // Error saving data
     console.log('saveData error', error);

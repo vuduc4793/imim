@@ -12,20 +12,20 @@ import {
 } from 'react-native';
 import { MyStatusBar } from '../../components/MyStatusBar';
 
-import {Colors, Styles, Icons, Texts, AppDimensions, TextStyles, Numbering} from "../../constants";
+import { Colors, Styles, Icons, Texts, AppDimensions, TextStyles, Numbering } from "../../constants";
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
 
 import styles from "./styles";
 
 import { changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow } from '../../redux/actions/settingUI';
-import {Utils, StorageUtils} from "../../helper";
+import { Utils, StorageUtils } from "../../helper";
 import HTML from 'react-native-render-html';
-import  HeaderSectionComponent  from '../../components/HeaderSectionComponent';
+import HeaderSectionComponent from '../../components/HeaderSectionComponent';
 
-import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
+import { generateDefaultTextStyles } from 'react-native-render-html/src/HTMLDefaultStyles';
 import UserInfoDialog from '../../screens/UserInfoDialog'
-import {postComplaint, postLawQuestion} from '../../services/api'
+import { postComplaint, postLawQuestion } from '../../services/api'
 import { Button } from "react-native-elements";
 class PostQuestionScreen extends React.PureComponent {
   constructor(props) {
@@ -34,18 +34,18 @@ class PostQuestionScreen extends React.PureComponent {
     this.state = {
       fontSize: props.fontSize,
       data: "",
-      title: props.navigation.getParam("fakeMode") ? "Tạo câu hỏi" : (props.navigation.getParam("dieuKhoanID") ? "Tạo câu hỏi" : "Tạo khiếu nại"),
+      title: props?.route?.params?.fakeMode ? "Tạo câu hỏi" : (props?.route?.params?.dieuKhoanID ? "Tạo câu hỏi" : "Tạo khiếu nại"),
       complainContent: "",
       isLoading: false,
       showInfoForm: false,
-      dieuKhoanID: props.navigation.getParam("dieuKhoanID"),
-      companyName: props.navigation.getParam("companyName"),
-      fakeMode: props.navigation.getParam("fakeMode") ?? false
+      dieuKhoanID: props?.route?.params?.dieuKhoanID,
+      companyName: props?.route?.params?.companyName,
+      fakeMode: props?.route?.params?.fakeMode || false
     };
-    console.log("dieuKhoanID", props.navigation.getParam("dieuKhoanID"))
+
   }
 
-  
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -62,7 +62,7 @@ class PostQuestionScreen extends React.PureComponent {
 
   renderHeader() {
     return (
-      <View style={[{ backgroundColor: Colors.colorPrimary },Styles.styleHeader]}>
+      <View style={[{ backgroundColor: Colors.colorPrimary }, Styles.styleHeader]}>
         <Header
           body={this.renderHeaderBody()}
           left={this.renderHeaderLeft()}
@@ -74,7 +74,7 @@ class PostQuestionScreen extends React.PureComponent {
   renderHeaderBody() {
     return (
       <View style={Styles.styleHeaderCenter}>
-        <Text style={[Styles.styleHeaderCenterText, {color: 'white'}]}>
+        <Text style={[Styles.styleHeaderCenterText, { color: 'white' }]}>
           {this.state.title}
         </Text>
       </View>
@@ -95,15 +95,17 @@ class PostQuestionScreen extends React.PureComponent {
   renderContent = () => {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView 
-          style={{ flex: 1, alignContent: 'center', backgroundColor: Colors.backgroundNumberQuestion}}
-          contentContainerStyle={{alignItems: 'center'}}>
-          <View style={[Styles.sectionStyle] }> 
+        <ScrollView
+          style={{ flex: 1, alignContent: 'center', backgroundColor: Colors.backgroundNumberQuestion }}
+          contentContainerStyle={{ alignItems: 'center' }}>
+          <View style={[Styles.sectionStyle]}>
             <TextInput
               multiline
               numberOfLines={3}
-              style={{fontSize: AppDimensions.NORMAL_TEXT_SIZE,
-                fontFamily: 'SegoeUI', width: "95%", marginBottom: 20,  height: AppDimensions.WINDOW_HEIGHT / 5}}
+              style={{
+                fontSize: AppDimensions.NORMAL_TEXT_SIZE,
+                fontFamily: 'SegoeUI', width: "95%", marginBottom: 20, height: AppDimensions.WINDOW_HEIGHT / 5
+              }}
               placeholder={this.state.dieuKhoanID ? "Nhập câu hỏi" : "Nhập nội dung"}
               onChangeText={(text) => this.setState({ complainContent: text })}
               clearButtonMode="while-editing"
@@ -111,8 +113,8 @@ class PostQuestionScreen extends React.PureComponent {
               ref={input => { this.textInput = input }}
             />
             <Button
-              buttonStyle={Platform.OS === 'ios' ? Styles.submitButton : {}}  
-               // containerStyle={Styles.submitButton}
+              buttonStyle={Platform.OS === 'ios' ? Styles.submitButton : {}}
+              // containerStyle={Styles.submitButton}
               type="outline"
               title="Gửi"
               onPress={() => {
@@ -120,18 +122,18 @@ class PostQuestionScreen extends React.PureComponent {
                   Alert.alert("Thông báo", "Vui lòng nhập nội dung")
                   return
                 }
-                this.setState({ showInfoForm: true});
+                this.setState({ showInfoForm: true });
               }}
             />
           </View>
         </ScrollView>
-        <View style={{height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor:'transparent'}}/>
+        <View style={{ height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor: 'transparent' }} />
         <UserInfoDialog
           showInfoForm={this.state.showInfoForm}
-          canEnterCompanyName={(this.state.dieuKhoanID || this.state.fakeMode)? false: true}
+          canEnterCompanyName={(this.state.dieuKhoanID || this.state.fakeMode) ? false : true}
           enteringCompanyName={this.state.companyName}
-          onCancelPressed={()=> this.setState({showInfoForm: false})}
-          onSubmitPressed={async(userName, userMail, companyName) => {
+          onCancelPressed={() => this.setState({ showInfoForm: false })}
+          onSubmitPressed={async (userName, userMail, companyName) => {
             console.log("companyName", companyName)
             this.setState({
               isLoading: true,
@@ -148,16 +150,16 @@ class PostQuestionScreen extends React.PureComponent {
                 Alert.alert("Thông báo", Texts.thankYouForYourComplaint)
               }
               this.setState({
-                complainContent: "", 
+                complainContent: "",
                 isLoading: false
               })
-              
+
               this.textInput.clear()
-            } catch(error) {
+            } catch (error) {
               console.log("post comment error", error)
-              this.setState({isLoading: false})
+              this.setState({ isLoading: false })
               Alert.alert("Thông báo", "Có lỗi xảy ra. Vui lòng thử lại!")
-            }            
+            }
           }}
         />
         {
@@ -168,9 +170,9 @@ class PostQuestionScreen extends React.PureComponent {
           />
         }
       </View>
-      
+
     );
-  } 
+  }
 }
 
 function mapStateToProps(state) {

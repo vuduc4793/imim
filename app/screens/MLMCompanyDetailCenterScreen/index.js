@@ -7,19 +7,19 @@ import {
   Share,
   ScrollView,
   Image as RNImage,
-  ActivityIndicator 
+  ActivityIndicator
 } from 'react-native';
 import { MyStatusBar } from '../../components/MyStatusBar';
 
-import {Colors, Styles, Icons, Numbering, AppDimensions, Texts} from "../../constants";
+import { Colors, Styles, Icons, Numbering, AppDimensions, Texts } from "../../constants";
 import { connect } from 'react-redux';
 import Header from '../../components/Header';
 import styles from "./styles";
 
 import { changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow } from '../../redux/actions/settingUI';
-import {Image} from 'react-native-elements';
+import { Image } from 'react-native-elements';
 // import { AdMobBanner} from 'react-native-admob';
-import {StorageUtils, Utils} from '../../helper';
+import { StorageUtils, Utils } from '../../helper';
 import { getCompanyDetail } from '../../services/api';
 import { parse } from 'fast-xml-parser';
 
@@ -29,28 +29,28 @@ class MLMCompanyDetailCenter extends React.PureComponent {
 
     this.state = {
       isShowAd: false,
-      companyDataFromList: props.navigation.getParam('companyData',''),
+      companyDataFromList: props?.route?.params?.companyData || '',
       companyData: {},
       keyword: "",
       isLoading: false,
       selectedItem: null,
-      adsImgLink : null,
-      adUnitID: __DEV__ ? Numbering.adsBannerTest : (Platform.OS === 'android' ? Numbering.adsBannerAndroid : Numbering.adsBannerIOS)  ,
-      commentList: [], 
+      adsImgLink: null,
+      adUnitID: __DEV__ ? Numbering.adsBannerTest : (Platform.OS === 'android' ? Numbering.adsBannerAndroid : Numbering.adsBannerIOS),
+      commentList: [],
       appName: Texts.appName
     };
-  
+
   }
 
-  async componentDidMount(){
+  async componentDidMount() {
     let adsImgLink = await StorageUtils.getData(Numbering.kAdsLink);
-    let appName = await StorageUtils.getData(Numbering.kHomeTitle); 
+    let appName = await StorageUtils.getData(Numbering.kHomeTitle);
     console.log('adsImgLink', adsImgLink)
-    if (adsImgLink){
-      this.setState({adsImgLink: {uri: adsImgLink}});
+    if (adsImgLink) {
+      this.setState({ adsImgLink: { uri: adsImgLink } });
     }
     if (appName) {
-      this.setState({appName})
+      this.setState({ appName })
     }
     //TODO: call API, combine local and remote comment
     this.getData()
@@ -62,7 +62,7 @@ class MLMCompanyDetailCenter extends React.PureComponent {
         <MyStatusBar backgroundColor={Colors.colorPrimaryDark} />
         {this.renderHeader()}
         {this.renderContent()}
-        
+
         {
           this.state.isLoading &&
           <ActivityIndicator
@@ -70,11 +70,11 @@ class MLMCompanyDetailCenter extends React.PureComponent {
             size="large" color={colors.colorPrimary}
           />
         }
-        
+
       </View>
     );
   }
-  
+
 
   _goBack = () => {
     this.props.navigation.goBack();
@@ -82,7 +82,7 @@ class MLMCompanyDetailCenter extends React.PureComponent {
 
   renderHeader() {
     return (
-      <View style={[{ backgroundColor: Colors.colorPrimary },Styles.styleHeader]}>
+      <View style={[{ backgroundColor: Colors.colorPrimary }, Styles.styleHeader]}>
         <Header
           body={this.renderHeaderBody()}
           left={this.renderHeaderLeft()}
@@ -96,7 +96,7 @@ class MLMCompanyDetailCenter extends React.PureComponent {
     return (
       <View>
         <TouchableOpacity style={Styles.styleHeaderButtonTopLeft} onPress={this.share}>
-          <Image source={Icons.IC_SHARE} style={[Styles.styleHeaderImageTopRight, {tintColor: 'white'}]} />
+          <Image source={Icons.IC_SHARE} style={[Styles.styleHeaderImageTopRight, { tintColor: 'white' }]} />
         </TouchableOpacity>
       </View>
     );
@@ -116,41 +116,41 @@ class MLMCompanyDetailCenter extends React.PureComponent {
   renderHeaderBody() {
     return (
       <View style={Styles.styleHeaderCenter}>
-        <Text style={[Styles.styleHeaderCenterText, {color: 'white'}]}
-        ellipsizeMode='tail'>
+        <Text style={[Styles.styleHeaderCenterText, { color: 'white' }]}
+          ellipsizeMode='tail'>
           Thông tin doanh nghiệp bán hàng đa cấp
         </Text>
       </View>
     );
   }
 
-  renderHeaderLeft() { 
+  renderHeaderLeft() {
     return (
       <View>
         <TouchableOpacity style={Styles.styleHeaderButtonTopLeft} onPress={this._goBack}>
-          <RNImage source={Icons.IC_BACK} style={[Styles.styleHeaderImageTopLeft, {tintColor: 'white'}]} />
+          <RNImage source={Icons.IC_BACK} style={[Styles.styleHeaderImageTopLeft, { tintColor: 'white' }]} />
         </TouchableOpacity>
       </View>
     );
   }
 
-  
+
   renderContent = () => {
-    let {companyData} = this.state;
+    let { companyData } = this.state;
     return (
-      <View style={{flex: 1, backgroundColor: Colors.backgroundNumberQuestion, alignItems: 'center'}}>
-        <View style={[Styles.sectionStyle,{paddingRight: 5}] }>
-          <View style={{flexDirection:'column', alignItems: 'center'}}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{flex: 2, alignItems: 'center'}}>
+      <View style={{ flex: 1, backgroundColor: Colors.backgroundNumberQuestion, alignItems: 'center' }}>
+        <View style={[Styles.sectionStyle, { paddingRight: 5 }]}>
+          <View style={{ flexDirection: 'column', alignItems: 'center' }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={{ flex: 2, alignItems: 'center' }}>
                 <Image
-                  style={{height: 60, width: 80, borderRadius: 5, resizeMode: 'contain',  }}
-                  source={{uri: `${companyData.logo}`}}
-                  PlaceholderContent={<Image source={Icons.IC_COMPANY} style={{height: 60, width: 80, borderRadius: 5, tintColor: Colors.headerSection, resizeMode: 'contain', }}/>}
-                  placeholderStyle={{backgroundColor: 'transparent'}}
+                  style={{ height: 60, width: 80, borderRadius: 5, resizeMode: 'contain', }}
+                  source={{ uri: `${companyData.logo}` }}
+                  PlaceholderContent={<Image source={Icons.IC_COMPANY} style={{ height: 60, width: 80, borderRadius: 5, tintColor: Colors.headerSection, resizeMode: 'contain', }} />}
+                  placeholderStyle={{ backgroundColor: 'transparent' }}
                 />
               </View>
-              <View style={{flex: 5, alignItems: 'flex-start', padding: 5, paddingRight: 10, flexDirection: "column"}}>
+              <View style={{ flex: 5, alignItems: 'flex-start', padding: 5, paddingRight: 10, flexDirection: "column" }}>
                 <View style={styles.subTextWrapper}>
                   <Image
                     source={Icons.IC_COMPANY}
@@ -168,154 +168,166 @@ class MLMCompanyDetailCenter extends React.PureComponent {
                 <View style={styles.subTextWrapper}>
                   <Image
                     source={Icons.IC_STATUS}
-                    style={{ width: 15, height: 14, resizeMode: "cover",marginRight: 10}}
+                    style={{ width: 15, height: 14, resizeMode: "cover", marginRight: 10 }}
                   />
-                  <Text style={[styles.subTitleTextStyle, {color: 'green'}]}>{companyData.option}</Text>
+                  <Text style={[styles.subTitleTextStyle, { color: 'green' }]}>{companyData.option}</Text>
                 </View>
 
               </View>
             </View>
-          </View>   
+          </View>
         </View>
         <ScrollView
-          style={{flex: 1}}
-          contentContainerStyle={{ alignItems: 'center', justifyContent: 'center',width:'100%'}}>
-          <View style={[Styles.sectionStyle] }>
-            <TouchableOpacity 
-              style={{width: '100%'}}
+          style={{ flex: 1 }}
+          contentContainerStyle={{ alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+          <View style={[Styles.sectionStyle]}>
+            <TouchableOpacity
+              style={{ width: '100%' }}
               onPress={() => {
-                this.props.navigation.navigate('MLMCompanyCommonDetail',{
+                this.props.navigation.navigate('MLMCompanyCommonDetail', {
                   companyData: companyData
                 });
               }}>
-              <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%', borderBottomColor: 'gray',
-    borderBottomWidth: 0.5}}>
-                <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>Hồ sơ chung</Text>
-                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
-              </View>
-            </TouchableOpacity> 
-            
-            <TouchableOpacity 
-              style={{width: '100%'}}
-              onPress={() => {
-                this.props.navigation.navigate('MLMCompanyFile',{
-                  companyData: companyData
-                });
+              <View style={{
+                flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%', borderBottomColor: 'gray',
+                borderBottomWidth: 0.5
               }}>
-              <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%', borderBottomColor: 'gray',
-    borderBottomWidth: 0.5}}>
-                <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>
-                Hồ sơ cập nhật
-                </Text>
-                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
+                <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>Hồ sơ chung</Text>
+                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
               </View>
-            </TouchableOpacity> 
+            </TouchableOpacity>
 
-            <TouchableOpacity 
-              style={{width: '100%'}}
+            <TouchableOpacity
+              style={{ width: '100%' }}
               onPress={() => {
-                this.props.navigation.navigate('MLMCompanyAgency',{
+                this.props.navigation.navigate('MLMCompanyFile', {
+                  companyData: companyData
+                });
+              }}>
+              <View style={{
+                flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%', borderBottomColor: 'gray',
+                borderBottomWidth: 0.5
+              }}>
+                <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>
+                  Hồ sơ cập nhật
+                </Text>
+                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{ width: '100%' }}
+              onPress={() => {
+                this.props.navigation.navigate('MLMCompanyAgency', {
                   companyData: companyData,
                 });
               }}>
-              <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%', borderBottomColor: 'gray',
-    borderBottomWidth: 0.5}}>
-                <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>
-                Trụ sở chính/Chi nhánh/VP đại diện/Địa điểm kinh doanh
+              <View style={{
+                flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%', borderBottomColor: 'gray',
+                borderBottomWidth: 0.5
+              }}>
+                <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>
+                  Trụ sở chính/Chi nhánh/VP đại diện/Địa điểm kinh doanh
                 </Text>
-                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
+                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
               </View>
-            </TouchableOpacity> 
+            </TouchableOpacity>
 
-            <TouchableOpacity 
-              style={{width: '100%'}}
+            <TouchableOpacity
+              style={{ width: '100%' }}
               onPress={() => {
-                this.props.navigation.navigate('MLMCompanyRepresentative',{
+                this.props.navigation.navigate('MLMCompanyRepresentative', {
                   companyData: companyData,
                   title: "Thông tin người đại diện"
                 });
               }}>
-              <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%', borderBottomColor: 'gray',
-    borderBottomWidth: 0.5}}>
-                <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>
-                Thông tin người đại diện
+              <View style={{
+                flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%', borderBottomColor: 'gray',
+                borderBottomWidth: 0.5
+              }}>
+                <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>
+                  Thông tin người đại diện
                 </Text>
-                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
+                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
               </View>
-            </TouchableOpacity> 
+            </TouchableOpacity>
 
-            <TouchableOpacity 
-              style={{width: '100%'}}
+            <TouchableOpacity
+              style={{ width: '100%' }}
               onPress={() => {
-                this.props.navigation.navigate('MLMCompanyOwner',{
+                this.props.navigation.navigate('MLMCompanyOwner', {
                   companyData: companyData,
                 });
               }}>
-              <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%', borderBottomColor: 'gray',
-    borderBottomWidth: 0.5}}>
-                <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>
-                Thông tin chủ sở hữu
+              <View style={{
+                flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%', borderBottomColor: 'gray',
+                borderBottomWidth: 0.5
+              }}>
+                <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>
+                  Thông tin chủ sở hữu
                 </Text>
-                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
+                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
               </View>
-            </TouchableOpacity> 
-            
-            <TouchableOpacity 
-              style={{width: '100%'}}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={{ width: '100%' }}
               onPress={() => {
-                this.props.navigation.navigate('PostQuestionScreen',{
+                this.props.navigation.navigate('PostQuestionScreen', {
                   companyName: companyData.ten
                 });
               }}>
-              <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%', borderBottomColor: 'gray',
-    borderBottomWidth: 0.5}}>
-                <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>
-                Khiếu nại
+              <View style={{
+                flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%', borderBottomColor: 'gray',
+                borderBottomWidth: 0.5
+              }}>
+                <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>
+                  Khiếu nại
                 </Text>
-                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
+                <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
               </View>
-            </TouchableOpacity> 
+            </TouchableOpacity>
 
-          {
-            Numbering.SHOW_ADS && <TouchableOpacity 
-            style={{width: '100%'}}
-            onPress={() => {
-              console.log("đánh giá: " + JSON.stringify(companyData))
-              this.props.navigation.navigate('MLMCompanyComment',{
-                companyData: companyData,
-                title: "Thông tin đánh giá"
-              });
-            }}>
-              
-            <View style={{flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width:'100%'}}>
-              <Text style={{fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1}}>
-              Đánh giá doanh nghiệp
-              </Text>
-              <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, {tintColor: Colors.headerSection}]} />
-            </View>
-          </TouchableOpacity> 
-          }
-          
-        </View>
+            {
+              Numbering.SHOW_ADS && <TouchableOpacity
+                style={{ width: '100%' }}
+                onPress={() => {
+                  console.log("đánh giá: " + JSON.stringify(companyData))
+                  this.props.navigation.navigate('MLMCompanyComment', {
+                    companyData: companyData,
+                    title: "Thông tin đánh giá"
+                  });
+                }}>
+
+                <View style={{ flex: 1, alignItems: 'center', flexDirection: 'row', padding: 10, width: '100%' }}>
+                  <Text style={{ fontSize: AppDimensions.LARGE_TEXT_SIZE, fontFamily: 'SegoeUI', color: Colors.colorBlack3, flex: 1 }}>
+                    Đánh giá doanh nghiệp
+                  </Text>
+                  <RNImage source={Icons.IC_NEXT} style={[Styles.styleHeaderImageTopLeft, { tintColor: Colors.headerSection }]} />
+                </View>
+              </TouchableOpacity>
+            }
+
+          </View>
         </ScrollView>
-        <View style={{width: '100%',backgroundColor: 'transparent'}}>
+        <View style={{ width: '100%', backgroundColor: 'transparent' }}>
           {
             (this.state.adsImgLink && Platform.OS === 'android') && (
-            <TouchableOpacity style={{width: '100%'}}
-              onPress={()=>{
-                this.props.navigation.navigate('AboutUs',{
-                  title: 'Sản phẩm',
-                  screenType: 'QUANGCAO'
-                });
-              }}>
-            <RNImage source={this.state.adsImgLink} 
-              style={{ 
-                width: AppDimensions.WINDOW_WIDTH,
-                height: AppDimensions.WINDOW_WIDTH /650*150 
-              }}
-              >
-            </RNImage>
-            </TouchableOpacity>)
+              <TouchableOpacity style={{ width: '100%' }}
+                onPress={() => {
+                  this.props.navigation.navigate('AboutUs', {
+                    title: 'Sản phẩm',
+                    screenType: 'QUANGCAO'
+                  });
+                }}>
+                <RNImage source={this.state.adsImgLink}
+                  style={{
+                    width: AppDimensions.WINDOW_WIDTH,
+                    height: AppDimensions.WINDOW_WIDTH / 650 * 150
+                  }}
+                >
+                </RNImage>
+              </TouchableOpacity>)
           }
           {/* {
             Platform.OS === "android" && 
@@ -334,35 +346,35 @@ class MLMCompanyDetailCenter extends React.PureComponent {
               }}
           /> } */}
         </View>
-        <View style={{height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor:'transparent'}}/>
+        <View style={{ height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor: 'transparent' }} />
       </View>
     );
-  }  
-  
+  }
+
   getData() {
-    this.setState({isLoading: true});
+    this.setState({ isLoading: true });
     getCompanyDetail(this.state.companyDataFromList.id).then((response) => {
       console.log('DetailCenter getData response', JSON.stringify(response));
-      return response.data 
+      return response.data
     }).then((textResponse) => {
       let obj = parse(textResponse);
-      
-      if (obj['soap:Envelope'] 
-          && obj['soap:Envelope']['soap:Body'] 
-          && obj['soap:Envelope']['soap:Body']['VccaDNBHDCDetailResponse'] 
-          && obj['soap:Envelope']['soap:Body']['VccaDNBHDCDetailResponse']['VccaDNBHDCDetailResult']) {
-            var result = obj['soap:Envelope']['soap:Body']['VccaDNBHDCDetailResponse']['VccaDNBHDCDetailResult']
-            let data = JSON.parse(result)
-            console.log('DetailCenter getData data', JSON.stringify(data))
-            this.setState({
-              companyData: data,
-              isLoading: false
-            })
+
+      if (obj['soap:Envelope']
+        && obj['soap:Envelope']['soap:Body']
+        && obj['soap:Envelope']['soap:Body']['VccaDNBHDCDetailResponse']
+        && obj['soap:Envelope']['soap:Body']['VccaDNBHDCDetailResponse']['VccaDNBHDCDetailResult']) {
+        var result = obj['soap:Envelope']['soap:Body']['VccaDNBHDCDetailResponse']['VccaDNBHDCDetailResult']
+        let data = JSON.parse(result)
+        console.log('DetailCenter getData data', JSON.stringify(data))
+        this.setState({
+          companyData: data,
+          isLoading: false
+        })
       }
     }).catch(err => {
       console.log('DetailCenter getData error', err);
     });
-    
+
   }
 }
 

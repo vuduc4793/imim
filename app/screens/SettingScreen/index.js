@@ -5,12 +5,13 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  AsyncStorage,
+  // AsyncStorage,
   Switch,
   ActivityIndicator,
   Platform,
   Linking
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { MyStatusBar } from '../../components/MyStatusBar';
 
 import {Colors, Styles, Icons, Texts, Jsons, Numbering, AppDimensions} from "../../constants";

@@ -1,5 +1,5 @@
 import {Dimensions, Platform} from "react-native";
-export default dimensions = {
+export default {
   WINDOW_WIDTH: Dimensions.get("window").width,
   WINDOW_HEIGHT: Dimensions.get("window").height,
   SCREEN_WIDTH: Dimensions.get("screen").width,

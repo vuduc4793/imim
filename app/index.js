@@ -7,7 +7,7 @@ import {
   Platform
 } from 'react-native';
 
-export default class App extends Component {
+export default class MainAppContainer extends Component {
   constructor() {
     super();
     this.state = {
