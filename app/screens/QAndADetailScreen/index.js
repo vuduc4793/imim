@@ -157,7 +157,8 @@ class QAndADetailScreen extends React.PureComponent {
     return (
       <View style={{ flex: 1, marginLeft: 10, marginRight: 10 }}>
         {/* <HTMLView style={{marginBottom: 20}} stylesheet={TextStyles.genQuestionTextStyles(this.state.fontSize)} value={"<text>Hỏi: "+this.state.question+"<text>"} />  */}
-        <HTML html={this.state.question}
+        <HTML
+              containerStyle={{}}html={this.state.question}
           imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
           baseFontStyle={{ fontSize: this.state.fontSize, fontFamily: 'SegoeUI-Bold', color: 'black' }}
           tagsStyles={generateDefaultTextStyles(this.state.fontSize)}
@@ -167,7 +168,8 @@ class QAndADetailScreen extends React.PureComponent {
           {/* <HTMLView stylesheet={TextStyles.genAnswerTextStyles(this.state.fontSize)} value={"<text>Đáp: <u><b>mispeled</b></u><text>"} /> */}
 
           {/* <HTMLView stylesheet={TextStyles.genAnswerTextStyles(this.state.fontSize)} value={"<p><img src=\"https://html-online.com/img/04-replace.png\" /></p> <h1><span style=\"color: #ff0000;\">Xử l&yacute; 2 lỗi:</span></h1> <ol> <li><em><strong>Khi paste số t&agrave;i khoản v&agrave;o th&igrave; remove to&agrave;n bộ k&iacute; tự đặc biệt v&agrave; dấu c&aacute;ch đi</strong></em></li> <li><em><strong>Khi bấm chọn lịch sử GD hoặc template để fill v&agrave;o m&agrave;n h&igrave;nh chuyển tiền th&igrave; điều chỉnh lại k&iacute;ch cỡ của &ocirc; nội dung, giống như khi nhập nội dung trực tiếp.</strong></em></li> </ol> <h4>Xem ảnh đ&iacute;nh k&egrave;m</h4>"} imagesMaxWidth={AppDimensions.WINDOW_WIDTH} /> */}
-          <HTML html={this.state.answer}
+          <HTML
+              containerStyle={{}}html={this.state.answer}
             imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
             baseFontStyle={{ fontSize: this.state.fontSize, fontFamily: 'SegoeUI', color: 'black' }}
             tagsStyles={generateDefaultTextStyles(this.state.fontSize)}

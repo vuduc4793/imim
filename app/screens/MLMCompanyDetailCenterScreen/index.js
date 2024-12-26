@@ -21,7 +21,8 @@ import { Image } from 'react-native-elements';
 // import { AdMobBanner} from 'react-native-admob';
 import { StorageUtils, Utils } from '../../helper';
 import { getCompanyDetail } from '../../services/api';
-import { parse } from 'fast-xml-parser';
+import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+const parser = new XMLParser();
 
 class MLMCompanyDetailCenter extends React.PureComponent {
   constructor(props) {
@@ -357,7 +358,7 @@ class MLMCompanyDetailCenter extends React.PureComponent {
       console.log('DetailCenter getData response', JSON.stringify(response));
       return response.data
     }).then((textResponse) => {
-      let obj = parse(textResponse);
+      let obj = parser.parse(textResponse);
 
       if (obj['soap:Envelope']
         && obj['soap:Envelope']['soap:Body']

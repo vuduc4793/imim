@@ -158,7 +158,8 @@ class MLMLawDetailScreen extends React.PureComponent {
     return (
       <View style={{ flex: 1, marginTop: 10, marginLeft: 10, marginRight: 10 }}>
         <ScrollView style={{ flex: 1 }}>
-          <HTML html={this.state.content}
+          <HTML
+              containerStyle={{}}html={this.state.content}
             imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
             baseFontStyle={{ fontSize: this.state.fontSize, fontFamily: 'SegoeUI', color: 'black' }}
             tagsStyles={generateDefaultTextStyles(this.state.fontSize)}

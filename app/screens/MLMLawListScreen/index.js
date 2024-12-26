@@ -178,12 +178,14 @@ class MLMLawListScreen extends React.PureComponent {
                   }
                   <View style={{backgroundColor: 'transparent', width: Platform.isPad ? 20 : 10}}/>
                   <View style={{flex: 1, flexDirection: 'column'}}>
-                    <HTML html={removeHTMLTags(item.shortName)} 
+                    <HTML
+              containerStyle={{}}html={removeHTMLTags(item.shortName)} 
                       imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                       baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI-Bold', color: 'black' }}
                       tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
                     /> 
-                    <HTML html={removeHTMLTags(item.name)} 
+                    <HTML
+              containerStyle={{}}html={removeHTMLTags(item.name)} 
                       imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                       baseFontStyle={{ fontSize: AppDimensions.SMALL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                       tagsStyles={generateDefaultTextStyles(AppDimensions.SMALL_TEXT_SIZE)}

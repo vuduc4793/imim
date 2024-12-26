@@ -116,7 +116,8 @@ class AboutUsiOSScreen extends React.PureComponent {
             <HeaderSectionComponent 
               style={[Styles.headerSectionStyle, { width: "100%"}]}
               title="Về chúng tôi"/>
-              <HTML html={this.state.contentHTML1} 
+              <HTML
+              containerStyle={{}}html={this.state.contentHTML1} 
                 imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                 baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                 tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
@@ -127,7 +128,8 @@ class AboutUsiOSScreen extends React.PureComponent {
             <HeaderSectionComponent 
               style={[Styles.headerSectionStyle, { width: "100%"}]}
               title="Thông tin liên hệ"/>
-              <HTML html={this.state.contentHTML2} 
+              <HTML
+              containerStyle={{}}html={this.state.contentHTML2} 
                 imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                 baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                 tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
@@ -138,7 +140,8 @@ class AboutUsiOSScreen extends React.PureComponent {
             <HeaderSectionComponent 
               style={[Styles.headerSectionStyle, { width: "100%",}]}
               title="Phản ánh/Khiếu nại"/>
-              {/* <HTML html={this.state.contentHTML3} 
+              {/* <HTML
+              containerStyle={{}}html={this.state.contentHTML3} 
                 imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                 baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                 tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}

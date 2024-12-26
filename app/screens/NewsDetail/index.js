@@ -25,7 +25,8 @@ import { Utils, DateTimeUtils } from "../../helper";
 import HTML from 'react-native-render-html';
 import { generateDefaultTextStyles } from 'react-native-render-html/src/HTMLDefaultStyles';
 import { getNewsDetail } from '../../services/api';
-import { parse } from 'fast-xml-parser';
+import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+const parser = new XMLParser();
 var DomParser = require('react-native-html-parser').DOMParser
 
 class NewsDetail extends React.PureComponent {
@@ -49,7 +50,7 @@ class NewsDetail extends React.PureComponent {
       console.log('NewsDetail getData response', JSON.stringify(response));
       return response.data
     }).then((textResponse) => {
-      let obj = parse(textResponse);
+      let obj = parser.parse(textResponse);
 
       if (obj['soap:Envelope'] && obj['soap:Envelope']['soap:Body']
         && obj['soap:Envelope']['soap:Body']['VccaTinResponse'] &&
@@ -151,7 +152,8 @@ class NewsDetail extends React.PureComponent {
               placeholderStyle={{ backgroundColor: 'transparent' }}
             />
           }
-          <HTML html={this.getEscapedContent(this.state.newsData.content)}
+          <HTML
+              containerStyle={{}}html={this.getEscapedContent(this.state.newsData.content)}
             imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
             baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
             tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}

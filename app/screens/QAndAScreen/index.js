@@ -158,12 +158,14 @@ class QAndAScreen extends React.PureComponent {
             <TouchableOpacity 
               style={{flexDirection: 'column', justifyContent: 'space-between', margin: 10}}
               onPress={() => this._onClick(item)}>
-              <HTML html={(item.index + 1)+ ". "+item.question} 
+              <HTML
+              containerStyle={{}}html={(item.index + 1)+ ". "+item.question} 
                 imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                 baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI-Bold', color: 'black' }}
                 tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
               /> 
-              <HTML html={item.summary} 
+              <HTML
+              containerStyle={{}}html={item.summary} 
                 imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20} 
                 baseFontStyle={{ fontSize: AppDimensions.SMALL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                 tagsStyles={generateDefaultTextStyles(AppDimensions.SMALL_TEXT_SIZE)}

@@ -110,12 +110,14 @@ class AboutUsScreen extends React.PureComponent {
       <View style={{ flex: 1 }}>
         <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
           {/* <HTMLView stylesheet={TextStyles.buildCommonStyles(this.state.fontSize)} value={"<text>"+this.state.data+"<text>"}/> */}
-          <HTML html={this.state.data}
+          <HTML
+            containerStyle={{}}
+            html={this.state.data}
             imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
             baseFontStyle={{ fontSize: this.state.screenType === Texts.introduce ? this.state.fontSize : AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
             tagsStyles={generateDefaultTextStyles(this.state.screenType === Texts.introduce ? this.state.fontSize : AppDimensions.NORMAL_TEXT_SIZE)}
-            containerStyle={{}}
-         />
+
+          />
         </ScrollView>
         {
           this.state.screenType === Texts.introduce &&

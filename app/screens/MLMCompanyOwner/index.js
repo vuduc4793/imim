@@ -21,7 +21,8 @@ import InfoLineComponent from '../../components/InfoLineComponent';
 import HeaderSectionComponent from '../../components/HeaderSectionComponent'
 import styles from "./styles";
 import { Utils } from "../../helper";
-import { parse } from 'fast-xml-parser';
+import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+const parser = new XMLParser();
 import { getCompanyOwner } from '../../services/api';
 
 class MLMCompanyOwner extends React.PureComponent {
@@ -53,7 +54,7 @@ class MLMCompanyOwner extends React.PureComponent {
       console.log('CompanyOwner getData response', JSON.stringify(response));
       return response.data
     }).then((textResponse) => {
-      let obj = parse(textResponse);
+      let obj = parser.parse(textResponse);
 
       if (obj['soap:Envelope']
         && obj['soap:Envelope']['soap:Body']

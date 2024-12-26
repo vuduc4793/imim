@@ -20,7 +20,8 @@ import { Image } from 'react-native-elements';
 import InfoLineComponent from '../../components/InfoLineComponent';
 import styles from "./styles";
 import { Utils } from "../../helper";
-import { parse } from 'fast-xml-parser';
+import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+const parser = new XMLParser();
 
 class MLMCompanyCommonDetail extends React.PureComponent {
   constructor(props) {

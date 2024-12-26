@@ -169,7 +169,8 @@ class MLMLawScreen extends React.PureComponent {
                 style={{marginBottom: 5}} 
                 stylesheet={TextStyles.genQuestionTextStyles(AppDimensions.NORMAL_TEXT_SIZE)} 
                 value={"<text>"+item.title+"<text>"}/> */}
-                  <HTML html={Utils.removeHTMLTags(item?.title)}
+                  <HTML
+              containerStyle={{}}html={Utils.removeHTMLTags(item?.title)}
                     imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
                     baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI-Bold', color: 'black' }}
                     tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
@@ -177,7 +178,8 @@ class MLMLawScreen extends React.PureComponent {
                   {/* <HTMLView 
                 stylesheet={TextStyles.genAnswerTextStyles(AppDimensions.NORMAL_TEXT_SIZE)} 
                 value={"<text>"+item.summary+"<text>"} /> */}
-                  <HTML html={Utils.removeHTMLTags(item?.summary)}
+                  <HTML
+              containerStyle={{}}html={Utils.removeHTMLTags(item?.summary)}
                     imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
                     baseFontStyle={{ fontSize: AppDimensions.SMALL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                     tagsStyles={generateDefaultTextStyles(AppDimensions.SMALL_TEXT_SIZE)}

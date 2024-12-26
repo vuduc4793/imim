@@ -84,8 +84,10 @@ export const getListNews = () => new Promise((resolve, reject) => {
             
         }
     ).then(response => {
+        console.log("getListNews response = ", response)
         resolve(response);
     }).catch(error => {
+        console.log("getListNews error = ", error)
         reject(error);
     });
 })
