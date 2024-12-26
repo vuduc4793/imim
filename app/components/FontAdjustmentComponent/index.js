@@ -8,7 +8,7 @@ class FontAdjustmentComponent extends React.PureComponent{
   constructor(props){
     super(props);
     this.state = {
-      currentFontSize : this.props.currentFontSize
+      currentFontSize : 14
     }
   }
 
