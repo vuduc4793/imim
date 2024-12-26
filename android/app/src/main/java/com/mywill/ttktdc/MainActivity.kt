@@ -1,4 +1,4 @@
-package com.imlm
+package com.mywill.ttktdc
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
