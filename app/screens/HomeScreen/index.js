@@ -243,4 +243,4 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
+export default HomeScreen

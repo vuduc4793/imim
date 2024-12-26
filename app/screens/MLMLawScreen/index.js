@@ -16,7 +16,7 @@ import Header from '../../components/Header';
 
 import styles from "./styles";
 import { FlatList } from 'react-native-gesture-handler';
-import Realm from 'realm';
+import { Realm } from '@realm/react';
 import { databaseOptions } from '../../realm/index';
 // import HTMLView from 'react-native-htmlview';
 const ITEM_PER_LOADING = 10;
@@ -169,7 +169,7 @@ class MLMLawScreen extends React.PureComponent {
                 style={{marginBottom: 5}} 
                 stylesheet={TextStyles.genQuestionTextStyles(AppDimensions.NORMAL_TEXT_SIZE)} 
                 value={"<text>"+item.title+"<text>"}/> */}
-                  <HTML html={Utils.removeHTMLTags(item.title)}
+                  <HTML html={Utils.removeHTMLTags(item?.title)}
                     imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
                     baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI-Bold', color: 'black' }}
                     tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
@@ -177,7 +177,7 @@ class MLMLawScreen extends React.PureComponent {
                   {/* <HTMLView 
                 stylesheet={TextStyles.genAnswerTextStyles(AppDimensions.NORMAL_TEXT_SIZE)} 
                 value={"<text>"+item.summary+"<text>"} /> */}
-                  <HTML html={Utils.removeHTMLTags(item.summary)}
+                  <HTML html={Utils.removeHTMLTags(item?.summary)}
                     imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
                     baseFontStyle={{ fontSize: AppDimensions.SMALL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
                     tagsStyles={generateDefaultTextStyles(AppDimensions.SMALL_TEXT_SIZE)}
@@ -230,7 +230,7 @@ class MLMLawScreen extends React.PureComponent {
 
     this.props.navigation.navigate('MLMLawDetail', {
       schema: this.state.schema,
-      itemIndex: item.id,
+      itemIndex: item?.id,
       maxItemIndex: this.state.maxItemIndex,
       documentShortName: this.state.titleBarText
     });
@@ -266,7 +266,7 @@ class MLMLawScreen extends React.PureComponent {
       console.log("textForSearch = " + keyword);
     }
     let dataFromRealm = Array.prototype.slice.call(data, startIndex, startIndex + ITEM_PER_LOADING);
-    // console.log("AgentNotice dataList", JSON.stringify(dataFromRealm));
+    console.log("AgentNotice dataList", JSON.stringify(dataFromRealm));
     console.log("startIndex= " + startIndex);
     this.setState({
       dataList: dataList.concat(dataFromRealm),
@@ -291,5 +291,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MLMLawScreen);
+export default MLMLawScreen
 

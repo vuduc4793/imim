@@ -48,6 +48,7 @@ function AppContainer() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: false }}>
+        <Stack.Screen name={"Splash"} component={SplashScreen} />
         <Stack.Screen name={"Home"} component={HomeScreen} />
         <Stack.Screen name={"QAndADetail"} component={QAndADetailScreen} />
         <Stack.Screen name={"QAndA"} component={QAndAScreen} />

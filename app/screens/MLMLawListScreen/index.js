@@ -204,7 +204,7 @@ class MLMLawListScreen extends React.PureComponent {
     );
   } 
   _onClick = (item) => {
-    
+    console.log(">>>>>>", item)
     this.props.navigation.navigate('MLMLaw', {
       schema: item.schemaName,
       titleBarText: item.shortName,
@@ -263,6 +263,6 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MLMLawListScreen);
+export default MLMLawListScreen
 
 

@@ -87,7 +87,7 @@ class SplashScreen extends React.PureComponent {
       fontSize = AppDimensions.SMALL_TEXT_SIZE;
     }
     console.log("getSetting fontSize" + fontSize);
-    this.props.changeFontSize(fontSize);
+    // this.props.changeFontSize(fontSize);
   }
 
   CheckConnectivity = () => {
@@ -399,4 +399,4 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SplashScreen);
+export default SplashScreen

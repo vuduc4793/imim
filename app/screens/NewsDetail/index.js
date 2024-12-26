@@ -173,7 +173,7 @@ class NewsDetail extends React.PureComponent {
   }
 
   onChangeFontSize = (fontSize) => {
-    this.props.changeFontSize(fontSize);
+    // this.props.changeFontSize(fontSize);
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   }
 
@@ -200,5 +200,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsDetail);
+export default NewsDetail
 

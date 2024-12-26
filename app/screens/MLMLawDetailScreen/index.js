@@ -19,7 +19,7 @@ import Header from '../../components/Header';
 
 import styles from "./styles";
 // import HTMLView from 'react-native-htmlview';
-import Realm from 'realm';
+import { Realm } from '@realm/react';
 import { databaseOptions } from '../../realm/index';
 import { changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow } from '../../redux/actions/settingUI';
 import { Utils } from "../../helper";
@@ -224,7 +224,7 @@ class MLMLawDetailScreen extends React.PureComponent {
   }
 
   onChangeFontSize = (fontSize) => {
-    this.props.changeFontSize(fontSize);
+    // this.props.changeFontSize(fontSize);
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   }
 }
@@ -244,5 +244,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MLMLawDetailScreen);
+export default MLMLawDetailScreen
 

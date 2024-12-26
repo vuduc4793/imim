@@ -315,5 +315,5 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListNews);
+export default ListNews
 

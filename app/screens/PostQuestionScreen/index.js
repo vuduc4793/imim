@@ -190,5 +190,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostQuestionScreen);
+export default PostQuestionScreen
 

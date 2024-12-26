@@ -114,7 +114,8 @@ class AboutUsScreen extends React.PureComponent {
             imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
             baseFontStyle={{ fontSize: this.state.screenType === Texts.introduce ? this.state.fontSize : AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
             tagsStyles={generateDefaultTextStyles(this.state.screenType === Texts.introduce ? this.state.fontSize : AppDimensions.NORMAL_TEXT_SIZE)}
-          />
+            containerStyle={{}}
+         />
         </ScrollView>
         {
           this.state.screenType === Texts.introduce &&
@@ -166,7 +167,7 @@ class AboutUsScreen extends React.PureComponent {
   }
 
   onChangeFontSize = (fontSize) => {
-    this.props.changeFontSize(fontSize);
+    // this.props.changeFontSize(fontSize);
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   }
 }
@@ -186,5 +187,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AboutUsScreen);
+export default AboutUsScreen
 

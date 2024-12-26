@@ -28,7 +28,8 @@ import { StorageUtils } from '../../helper';
 const ITEM_PER_LOADING = 10;
 import {Utils} from "../../helper";
 import { getListCompany } from '../../services/api';
-import { parse } from 'fast-xml-parser';
+import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+const parser = new XMLParser();
 import { debounce } from "lodash";
 import Icon from "react-native-vector-icons/FontAwesome"
 class MLMCompanyList extends React.PureComponent {
@@ -342,11 +343,9 @@ class MLMCompanyList extends React.PureComponent {
     } else {
       if (companyListFull.length == 0) {
         getListCompany().then((response) => {
-          console.log('ListCompany getData response', JSON.stringify(response));
           return response.data 
         }).then((textResponse) => {
-          let obj = parse(textResponse);
-          
+          let obj = parser.parse(textResponse);
           if (obj['soap:Envelope'] 
               && obj['soap:Envelope']['soap:Body'] 
               && obj['soap:Envelope']['soap:Body']['VccaListDNBHDCResponse'] 
@@ -354,7 +353,6 @@ class MLMCompanyList extends React.PureComponent {
                 var result = obj['soap:Envelope']['soap:Body']['VccaListDNBHDCResponse']['VccaListDNBHDCResult']
                 result = `[${result}]`
                 let data = JSON.parse(result)
-                console.log('ListCompany getData data', JSON.stringify(data))
                 this.setState({
                   companyListFull: data,
                 })
@@ -374,6 +372,7 @@ class MLMCompanyList extends React.PureComponent {
     keyword = Utils.nonAccentVietnamese(keyword)
     console.log("filterListWithKeyword 364", keyword)
     let {companyListFull} = this.state;
+    console.log("companyListFull", companyListFull)
     if (!keyword) {
       this.setState({
         companyList: companyListFull ,
@@ -419,5 +418,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MLMCompanyList);
+export default MLMCompanyList
 

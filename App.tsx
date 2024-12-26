@@ -29,33 +29,33 @@ import { Provider } from 'react-redux';
 // import { store } from './app/redux/store';
 import AppContainer from './app/navigation';
 
-import { applyMiddleware, createStore, compose } from 'redux';
+// import { applyMiddleware, createStore, compose } from 'redux';
 
-import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import thunkMiddleware from 'redux-thunk';
-import reducers from './app/redux/reducers';
+// import { persistStore, persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
+// import thunkMiddleware from 'redux-thunk';
+// import reducers from './app/redux/reducers';
 
-const middleWares = [thunkMiddleware];
-const persistConfig = {
-  timeout: 10000,
-  key: 'root',
-  storage,
-  whitelist: [
-    'settingUI'
-  ],
-};
+// const middleWares = [thunkMiddleware];
+// const persistConfig = {
+//   timeout: 10000,
+//   key: 'root',
+//   storage,
+//   whitelist: [
+//     'settingUI'
+//   ],
+// };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
-export const store = createStore(persistedReducer, compose(applyMiddleware()));
-export const persistor = persistStore(store);
+// const persistedReducer = persistReducer(persistConfig, reducers);
+// export const store = createStore(persistedReducer, compose(applyMiddleware()));
+// export const persistor = persistStore(store);
 
 function App(): React.JSX.Element {
   return (
 
-    <Provider store={store}>
+    // <Provider store={store}>
       <AppContainer />
-    </Provider>
+    // </Provider>
   );
 }
 

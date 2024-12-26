@@ -155,6 +155,6 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsAndAlertScreen);
+export default NewsAndAlertScreen
 
 

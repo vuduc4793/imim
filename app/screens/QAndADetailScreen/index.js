@@ -236,7 +236,7 @@ class QAndADetailScreen extends React.PureComponent {
     });
   }
   onChangeFontSize = (fontSize) => {
-    this.props.changeFontSize(fontSize);
+    // this.props.changeFontSize(fontSize);
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   }
 }
@@ -256,5 +256,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(QAndADetailScreen);
+export default QAndADetailScreen
 

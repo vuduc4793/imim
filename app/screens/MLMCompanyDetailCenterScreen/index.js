@@ -393,5 +393,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MLMCompanyDetailCenter);
+export default MLMCompanyDetailCenter
 

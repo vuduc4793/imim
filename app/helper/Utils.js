@@ -56,19 +56,19 @@ export const getListProvinceFromJson = () => {
 }
 
 export const removeHTMLTags = (r) => {
-  r = r.replace('<p>','');
-  r = r.replace('</p>','');
-  r = r.replace('<note>','');
-  r = r.replace('</note>','');
-  r = r.replace('<i>','');
-  r = r.replace('</i>','');
-  r = r.replace('<ub>','');
-  r = r.replace('</ub>','');
-  r = r.replace('<ib>','');
-  r = r.replace('</ib>','');
-  r = r.replace('<hl>','');
-  r = r.replace('</hl>','');
-  r = r.replace(/(<([^>]+)>)/ig,"");
+  r = r?.replace('<p>','');
+  r = r?.replace('</p>','');
+  r = r?.replace('<note>','');
+  r = r?.replace('</note>','');
+  r = r?.replace('<i>','');
+  r = r?.replace('</i>','');
+  r = r?.replace('<ub>','');
+  r = r?.replace('</ub>','');
+  r = r?.replace('<ib>','');
+  r = r?.replace('</ib>','');
+  r = r?.replace('<hl>','');
+  r = r?.replace('</hl>','');
+  r = r?.replace(/(<([^>]+)>)/ig,"");
   return r;
 }
 

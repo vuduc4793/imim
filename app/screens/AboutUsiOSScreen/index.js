@@ -239,5 +239,5 @@ const mapDispatchToProps = {
   changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AboutUsiOSScreen);
+export default AboutUsiOSScreen
 
