@@ -32,7 +32,7 @@ class AboutUsScreen extends React.PureComponent {
 
     this.state = {
       isLoading: false,
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       data: "<p></p>",
       title: props.navigation ? props?.route?.params?.title : props.title,
       screenType: props.navigation ? props?.route?.params?.screenType : props.title,

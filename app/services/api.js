@@ -16,6 +16,7 @@ export const getData = () => new Promise((resolve, reject) => {
 
 export const getDataVersion = () => new Promise((resolve, reject) => {
     apiRoot.get('intro/last').then(response => {
+        console.log("response", response)
         resolve(response);
     }).catch(error => {
         reject(error);

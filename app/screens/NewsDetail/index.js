@@ -34,7 +34,7 @@ class NewsDetail extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       newsDataFromList: props?.route?.params?.newsData || '',
       title: Texts.news,
       newsData: {}

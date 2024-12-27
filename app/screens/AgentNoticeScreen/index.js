@@ -31,7 +31,7 @@ class AgentNoticeScreen extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       data: [],
       header: "",
       // title: "Lưu ý nhà phân phối",

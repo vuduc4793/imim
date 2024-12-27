@@ -32,7 +32,7 @@ class PostQuestionScreen extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       data: "",
       title: props?.route?.params?.fakeMode ? "Tạo câu hỏi" : (props?.route?.params?.dieuKhoanID ? "Tạo câu hỏi" : "Tạo khiếu nại"),
       complainContent: "",

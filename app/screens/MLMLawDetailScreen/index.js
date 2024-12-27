@@ -31,7 +31,7 @@ class MLMLawDetailScreen extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       schema: props?.route?.params?.schema || '',
       itemIndex: props?.route?.params?.itemIndex || 0,
       maxItemIndex: props?.route?.params?.maxItemIndex || 1,

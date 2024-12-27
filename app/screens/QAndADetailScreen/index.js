@@ -31,7 +31,7 @@ class QAndADetailScreen extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       isShowAd: false,
       questionNumber: props?.route?.params?.questionNumber || 1,
       maxQuestionNumber: props?.route?.params?.maxQuestionNumber || 1,

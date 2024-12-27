@@ -35,7 +35,7 @@ class MLMCompanySuggest extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize,
+      fontSize: props.fontSize || 14,
       data: "",
       complainContent: "",
       isLoading: false,
