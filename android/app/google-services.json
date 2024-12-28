@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "424022788480",
+    "firebase_url": "https://ttktdc-d7b7d.firebaseio.com",
+    "project_id": "ttktdc-d7b7d",
+    "storage_bucket": "ttktdc-d7b7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424022788480:android:7246e86024d94621bb9965",
+        "android_client_info": {
+          "package_name": "com.mywill.ttktdc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "424022788480-80og5m6aufsok501bu7f8ifj9s3ggog2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHkHnXBEgPuoxhEF2b17M-3dcs7INAVjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "424022788480-80og5m6aufsok501bu7f8ifj9s3ggog2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
