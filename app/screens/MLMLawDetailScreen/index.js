@@ -39,12 +39,13 @@ import {Utils} from '../../helper';
 import FontAdjustmentComponent from '../../components/FontAdjustmentComponent';
 import HTML from 'react-native-render-html';
 import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
+import {useStore} from '../../redux/store/useStore';
 class MLMLawDetailScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize || 14,
+      fontSize: useStore.getState().fontSize || 14,
       schema: props?.route?.params?.schema || '',
       itemIndex: props?.route?.params?.itemIndex || 0,
       maxItemIndex: props?.route?.params?.maxItemIndex || 1,
@@ -61,7 +62,7 @@ class MLMLawDetailScreen extends React.PureComponent {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.fontSize !== nextProps.fontSize) {
+    if (useStore.getState().fontSize !== nextProps.fontSize) {
       this.setState({
         fontSize: nextProps.fontSize,
       });
@@ -289,6 +290,8 @@ class MLMLawDetailScreen extends React.PureComponent {
 
   onChangeFontSize = fontSize => {
     // this.props.changeFontSize(fontSize);
+    this.setState({fontSize});
+    useStore.setState({fontSize: fontSize});
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   };
 }

@@ -40,6 +40,7 @@ import HTML from 'react-native-render-html';
 import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
 import {getNewsDetail} from '../../services/api';
 import {XMLParser, XMLBuilder, XMLValidator} from 'fast-xml-parser';
+import {useStore} from '../../redux/store/useStore';
 const parser = new XMLParser();
 var DomParser = require('react-native-html-parser').DOMParser;
 
@@ -48,7 +49,7 @@ class NewsDetail extends React.PureComponent {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize || 14,
+      fontSize: useStore.getState().fontSize || 14,
       newsDataFromList: props?.route?.params?.newsData || '',
       title: Texts.news,
       newsData: {},
@@ -92,7 +93,7 @@ class NewsDetail extends React.PureComponent {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.fontSize !== nextProps.fontSize) {
+    if (useStore.getState().fontSize !== nextProps.fontSize) {
       this.setState({
         fontSize: nextProps.fontSize,
       });
@@ -225,6 +226,8 @@ class NewsDetail extends React.PureComponent {
 
   onChangeFontSize = fontSize => {
     // this.props.changeFontSize(fontSize);
+    this.setState({fontSize});
+    useStore.setState({fontSize: fontSize});
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   };
 

@@ -27,12 +27,13 @@ import { generateDefaultTextStyles } from 'react-native-render-html/src/HTMLDefa
 import UserInfoDialog from '../../screens/UserInfoDialog'
 import { postComplaint, postLawQuestion } from '../../services/api'
 import { Button } from "react-native-elements";
+import { useStore } from '../../redux/store/useStore';
 class PostQuestionScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize || 14,
+      fontSize: useStore.getState().fontSize || 14,
       data: "",
       title: props?.route?.params?.fakeMode ? "Tạo câu hỏi" : (props?.route?.params?.dieuKhoanID ? "Tạo câu hỏi" : "Tạo khiếu nại"),
       complainContent: "",

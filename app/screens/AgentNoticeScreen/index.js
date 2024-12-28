@@ -39,12 +39,13 @@ import {
 } from '../../redux/actions/settingUI';
 import HTML from 'react-native-render-html';
 import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
+import {useStore} from '../../redux/store/useStore';
 class AgentNoticeScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize || 14,
+      fontSize: useStore.getState().fontSize || 14,
       data: [],
       header: '',
       // title: "Lưu ý nhà phân phối",
@@ -55,7 +56,7 @@ class AgentNoticeScreen extends React.PureComponent {
   }
   componentDidMount() {}
   componentWillReceiveProps = nextProps => {
-    if (this.props.fontSize !== nextProps.fontSize) {
+    if (useStore.getState().fontSize !== nextProps.fontSize) {
       this.setState({
         fontSize: nextProps.fontSize,
       });

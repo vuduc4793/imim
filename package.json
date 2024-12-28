@@ -7,9 +7,11 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "postinstall": "patch-package"
   },
   "dependencies": {
+    "@hookstate/core": "^4.0.1",
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-community/netinfo": "^11.4.1",
     "@react-navigation/elements": "^2.2.5",
@@ -22,6 +24,8 @@
     "fast-xml-parser": "^4.5.1",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.29.1",
+    "patch-package": "^8.0.0",
+    "postinstall-postinstall": "^2.1.0",
     "react": "18.3.1",
     "react-native": "0.76.5",
     "react-native-actionsheet": "^2.4.2",
@@ -61,7 +65,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^3.1.0",
     "rn-fetch-blob": "0.12.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

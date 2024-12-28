@@ -40,6 +40,7 @@ import HTML from 'react-native-render-html';
 import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
 import {debounce} from 'lodash';
 import {Utils} from '../../helper';
+import {useStore} from '../../redux/store/useStore';
 
 class MLMLawScreen extends React.PureComponent {
   constructor(props) {
@@ -64,7 +65,7 @@ class MLMLawScreen extends React.PureComponent {
   componentDidMount() {}
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.fontSize !== nextProps.fontSize) {
+    if (useStore.getState().fontSize !== nextProps.fontSize) {
       this.setState({
         fontSize: nextProps.fontSize,
       });

@@ -43,13 +43,14 @@ import UserInfoDialog from '../../screens/UserInfoDialog';
 import {postComplaint} from '../../services/api';
 import {Button} from 'react-native-elements';
 import DeviceInfo from 'react-native-device-info';
+import { useStore } from '../../redux/store/useStore';
 
 class AboutUsiOSScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize || 14,
+      fontSize: useStore.getState().fontSize,
       data: '',
       title: 'Về chúng tôi',
       complainContent: '',

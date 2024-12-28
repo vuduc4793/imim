@@ -40,12 +40,13 @@ import {Utils} from '../../helper';
 import FontAdjustmentComponent from '../../components/FontAdjustmentComponent';
 import HTML from 'react-native-render-html';
 import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
+import {useStore} from '../../redux/store/useStore';
 class QAndADetailScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      fontSize: props.fontSize || 14,
+      fontSize: useStore.getState().fontSize || 14,
       isShowAd: false,
       questionNumber: props?.route?.params?.questionNumber || 1,
       maxQuestionNumber: props?.route?.params?.maxQuestionNumber || 1,
@@ -59,7 +60,7 @@ class QAndADetailScreen extends React.PureComponent {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (this.props.fontSize !== nextProps.fontSize) {
+    if (useStore.getState().fontSize !== nextProps.fontSize) {
       this.setState({
         fontSize: nextProps.fontSize,
       });
@@ -309,6 +310,8 @@ class QAndADetailScreen extends React.PureComponent {
   };
   onChangeFontSize = fontSize => {
     // this.props.changeFontSize(fontSize);
+    this.setState({fontSize});
+    useStore.setState({fontSize: fontSize});
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
   };
 }
