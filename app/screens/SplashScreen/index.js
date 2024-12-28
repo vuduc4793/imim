@@ -85,7 +85,6 @@ class SplashScreen extends React.PureComponent {
                 'self.props.navigation',
                 JSON.stringify(self.props.navigation),
               );
-              self.props.navigation.replace('Home');
             }
           },
         );
@@ -97,6 +96,7 @@ class SplashScreen extends React.PureComponent {
     if (Platform.OS === 'ios') {
       KeyboardManager.setEnableAutoToolbar(true);
     }
+    self.props.navigation.replace('Home');
   }
 
   getSetting = async () => {
@@ -193,20 +193,20 @@ class SplashScreen extends React.PureComponent {
                 isLoading: false,
               });
               if (this.state.isInInterval == false) {
-                this.props.navigation.replace('Home');
+                // this.props.navigation.replace('Home');
               }
             }
           })
           .catch(error => {
             console.log('getLocalDataVersion error', JSON.stringify(error));
             console.log('getLocalDataVersion error.message', error.message);
-            this.props.navigation.replace('Home');
+            // this.props.navigation.replace('Home');
             // Alert.alert("Thông báo", "Có lỗi trong quá trình tải dữ liệu ứng dụng về máy! (151)");
           });
       })
       .catch(err => {
         console.log('getDataVersion error', err);
-        this.props.navigation.replace('Home');
+        // this.props.navigation.replace('Home');
         // Alert.alert('getDataVersion error.message', JSON.stringify(err?.data));
         // this.checkOffLineModeAvailable();
       });
@@ -226,7 +226,7 @@ class SplashScreen extends React.PureComponent {
       console.log('reach 162');
       if (this.state.isInInterval == false) {
         console.log('reach 164');
-        this.props.navigation.replace('Home');
+        // this.props.navigation.replace('Home');
       }
     } else {
       Alert.alert(
@@ -396,7 +396,7 @@ class SplashScreen extends React.PureComponent {
       StorageUtils.saveData(Numbering.kDbVersion, this.state.dbVer);
 
       if (this.state.isInInterval == false) {
-        this.props.navigation.replace('Home');
+        // this.props.navigation.replace('Home');
       }
     } catch (error) {
       // Handle error

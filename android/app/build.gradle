@@ -82,7 +82,7 @@ android {
         applicationId "com.mywill.ttktdc"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 19
+        versionCode 20
         versionName "2.0"
     }
     signingConfigs {
