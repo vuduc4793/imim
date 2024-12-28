@@ -10,24 +10,38 @@ import {
   TouchableWithoutFeedback,
   // AsyncStorage,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { MyStatusBar } from '../../components/MyStatusBar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {MyStatusBar} from '../../components/MyStatusBar';
 
-import { Colors, Styles, Icons, Texts, AppDimensions, TextStyles, Numbering } from "../../constants";
-import { connect } from 'react-redux';
+import {
+  Colors,
+  Styles,
+  Icons,
+  Texts,
+  AppDimensions,
+  TextStyles,
+  Numbering,
+} from '../../constants';
+import {connect} from 'react-redux';
 import Header from '../../components/Header';
 
-import styles from "./styles";
+import styles from './styles';
 
-import FontAdjustmentComponent from "../../components/FontAdjustmentComponent";
-import { changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow } from '../../redux/actions/settingUI';
-import { Utils, DateTimeUtils } from "../../helper";
+import FontAdjustmentComponent from '../../components/FontAdjustmentComponent';
+import {
+  changeBackgroundColor,
+  changeTypeRead,
+  changeFontSize,
+  changeFontFamily,
+  changeDistanceRow,
+} from '../../redux/actions/settingUI';
+import {Utils, DateTimeUtils} from '../../helper';
 import HTML from 'react-native-render-html';
-import { generateDefaultTextStyles } from 'react-native-render-html/src/HTMLDefaultStyles';
-import { getNewsDetail } from '../../services/api';
-import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+import {generateDefaultTextStyles} from 'react-native-render-html/src/HTMLDefaultStyles';
+import {getNewsDetail} from '../../services/api';
+import {XMLParser, XMLBuilder, XMLValidator} from 'fast-xml-parser';
 const parser = new XMLParser();
-var DomParser = require('react-native-html-parser').DOMParser
+var DomParser = require('react-native-html-parser').DOMParser;
 
 class NewsDetail extends React.PureComponent {
   constructor(props) {
@@ -37,7 +51,7 @@ class NewsDetail extends React.PureComponent {
       fontSize: props.fontSize || 14,
       newsDataFromList: props?.route?.params?.newsData || '',
       title: Texts.news,
-      newsData: {}
+      newsData: {},
     };
   }
 
@@ -46,37 +60,47 @@ class NewsDetail extends React.PureComponent {
   }
 
   getData() {
-    getNewsDetail(this.state.newsDataFromList.id).then((response) => {
-      console.log('NewsDetail getData response', JSON.stringify(response));
-      return response.data
-    }).then((textResponse) => {
-      let obj = parser.parse(textResponse);
+    getNewsDetail(this.state.newsDataFromList.id)
+      .then(response => {
+        console.log('NewsDetail getData response', JSON.stringify(response));
+        return response.data;
+      })
+      .then(textResponse => {
+        let obj = parser.parse(textResponse);
 
-      if (obj['soap:Envelope'] && obj['soap:Envelope']['soap:Body']
-        && obj['soap:Envelope']['soap:Body']['VccaTinResponse'] &&
-        obj['soap:Envelope']['soap:Body']['VccaTinResponse']['VccaTinResult']) {
-        var data = JSON.parse(obj['soap:Envelope']['soap:Body']['VccaTinResponse']['VccaTinResult'])
-        console.log('NewsDetail getData newsData', JSON.stringify(data));
-        this.setState({
-          newsData: data
-        })
-      }
-    }).catch(err => {
-      console.log('NewsDetail getData error', err);
-      Alert.alert("Thông báo", err.message)
-    });
+        if (
+          obj['soap:Envelope'] &&
+          obj['soap:Envelope']['soap:Body'] &&
+          obj['soap:Envelope']['soap:Body']['VccaTinResponse'] &&
+          obj['soap:Envelope']['soap:Body']['VccaTinResponse']['VccaTinResult']
+        ) {
+          var data = JSON.parse(
+            obj['soap:Envelope']['soap:Body']['VccaTinResponse'][
+              'VccaTinResult'
+            ],
+          );
+          console.log('NewsDetail getData newsData', JSON.stringify(data));
+          this.setState({
+            newsData: data,
+          });
+        }
+      })
+      .catch(err => {
+        console.log('NewsDetail getData error', err);
+        Alert.alert('Thông báo', err.message);
+      });
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentWillReceiveProps = nextProps => {
     if (this.props.fontSize !== nextProps.fontSize) {
       this.setState({
         fontSize: nextProps.fontSize,
-      })
+      });
     }
-  }
+  };
   render() {
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{flex: 1}}>
         <MyStatusBar backgroundColor={Colors.colorPrimaryDark} />
         {this.renderHeader()}
         {this.renderContent()}
@@ -86,15 +110,13 @@ class NewsDetail extends React.PureComponent {
 
   _goBack = () => {
     this.props.navigation.goBack();
-  }
+  };
 
   renderHeader() {
     return (
-      <View style={[{ backgroundColor: Colors.colorPrimary }, Styles.styleHeader]}>
-        <Header
-          body={this.renderHeaderBody()}
-          left={this.renderHeaderLeft()}
-        />
+      <View
+        style={[{backgroundColor: Colors.colorPrimary}, Styles.styleHeader]}>
+        <Header body={this.renderHeaderBody()} left={this.renderHeaderLeft()} />
       </View>
     );
   }
@@ -102,7 +124,7 @@ class NewsDetail extends React.PureComponent {
   renderHeaderBody() {
     return (
       <View style={Styles.styleHeaderCenter}>
-        <Text style={[Styles.styleHeaderCenterText, { color: 'white' }]}>
+        <Text style={[Styles.styleHeaderCenterText, {color: 'white'}]}>
           {this.state.title}
         </Text>
       </View>
@@ -112,51 +134,73 @@ class NewsDetail extends React.PureComponent {
   renderHeaderLeft() {
     return (
       <View style={styles.styleHeaderCenter}>
-        <TouchableOpacity style={Styles.styleHeaderButtonTopLeft} onPress={this._goBack}>
-          <Image source={Icons.IC_BACK} style={Styles.styleHeaderImageTopLeft} />
+        <TouchableOpacity
+          style={Styles.styleHeaderButtonTopLeft}
+          onPress={this._goBack}>
+          <Image
+            source={Icons.IC_BACK}
+            style={Styles.styleHeaderImageTopLeft}
+          />
         </TouchableOpacity>
       </View>
     );
   }
 
-
   renderContent = () => {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
-          <Text style={{
-            color: Colors.headerSection,
-            fontSize: AppDimensions.NORMAL_TEXT_SIZE,
-            fontFamily: 'SegoeUI-Bold',
-            paddingBottom: 10, paddingTop: 10
-          }}>{this.state.newsData.title}</Text>
-          <View style={[styles.subTextWrapper, { paddingBottom: 10 }]}>
-            <Image
-              source={Icons.IC_NEWS}
-              style={styles.icon}
-            />
-            <Text style={styles.subTitleTextStyle}>{this.state.newsData.category_ids}</Text>
+      <View style={{flex: 1}}>
+        <ScrollView style={{flex: 1, paddingHorizontal: 10}}>
+          <Text
+            style={{
+              color: Colors.headerSection,
+              fontSize: AppDimensions.NORMAL_TEXT_SIZE,
+              fontFamily: 'SegoeUI-Bold',
+              paddingBottom: 10,
+              paddingTop: 10,
+            }}>
+            {this.state.newsData.title}
+          </Text>
+          <View style={[styles.subTextWrapper, {paddingBottom: 10}]}>
+            <Image source={Icons.IC_NEWS} style={styles.icon} />
+            <Text style={styles.subTitleTextStyle}>
+              {this.state.newsData.category_ids}
+            </Text>
           </View>
-          <View style={[styles.subTextWrapper, { paddingBottom: 10 }]}>
-            <Image
-              source={Icons.IC_CLOCK}
-              style={styles.icon}
-            />
-            <Text style={styles.subTitleTextStyle}>{DateTimeUtils.dateConverter(this.state.newsData.modify)}</Text>
+          <View style={[styles.subTextWrapper, {paddingBottom: 10}]}>
+            <Image source={Icons.IC_CLOCK} style={styles.icon} />
+            <Text style={styles.subTitleTextStyle}>
+              {DateTimeUtils.dateConverter(this.state.newsData.modify)}
+            </Text>
           </View>
-          {
-            this.state.newsData.files_url &&
-            <Image source={{ uri: this.state.newsData.files_url }}
-              style={{ height: 200, paddingBottom: 10 }}
-              PlaceholderContent={<Image source={Icons.IMG_LOGO} style={{ height: 200, tintColor: Colors.headerSection, resizeMode: 'contain', }} />}
-              placeholderStyle={{ backgroundColor: 'transparent' }}
+          {this.state.newsData.files_url && (
+            <Image
+              source={{uri: this.state.newsData.files_url}}
+              style={{height: 200, paddingBottom: 10}}
+              PlaceholderContent={
+                <Image
+                  source={Icons.IMG_LOGO}
+                  style={{
+                    height: 200,
+                    tintColor: Colors.headerSection,
+                    resizeMode: 'contain',
+                  }}
+                />
+              }
+              placeholderStyle={{backgroundColor: 'transparent'}}
             />
-          }
+          )}
           <HTML
-              containerStyle={{}}html={this.getEscapedContent(this.state.newsData.content)}
+            containerStyle={{}}
+            html={this.getEscapedContent(this.state.newsData.content)}
             imagesMaxWidth={AppDimensions.WINDOW_WIDTH - 20}
-            baseFontStyle={{ fontSize: AppDimensions.NORMAL_TEXT_SIZE, fontFamily: 'SegoeUI', color: 'black' }}
-            tagsStyles={generateDefaultTextStyles(AppDimensions.NORMAL_TEXT_SIZE)}
+            baseFontStyle={{
+              fontSize: AppDimensions.NORMAL_TEXT_SIZE,
+              fontFamily: 'SegoeUI',
+              color: 'black',
+            }}
+            tagsStyles={generateDefaultTextStyles(
+              AppDimensions.NORMAL_TEXT_SIZE,
+            )}
           />
         </ScrollView>
         {/* {
@@ -168,39 +212,51 @@ class NewsDetail extends React.PureComponent {
           onPressDecrease={()=>{this.onChangeFontSize(this.state.fontSize - Numbering.fontSizeChangeConst)}}
         />)
         } */}
-        <View style={{ height: Utils.getBottomSafeAreaHeight(), width: "100%", backgroundColor: 'transparent' }} />
-
+        <View
+          style={{
+            height: Utils.getBottomSafeAreaHeight(),
+            width: '100%',
+            backgroundColor: 'transparent',
+          }}
+        />
       </View>
     );
-  }
+  };
 
-  onChangeFontSize = (fontSize) => {
+  onChangeFontSize = fontSize => {
     // this.props.changeFontSize(fontSize);
     AsyncStorage.setItem(Numbering.normalTextSize, fontSize + '');
-  }
+  };
 
-  getEscapedContent = (content) => {
-    console.log("getEscapedContent input", content)
-    let doc = new DomParser().parseFromString(`<!DOCTYPE html><html><head></head><body>${content}</body></html>`, 'text/html')
-    console.log("getEscapedContent output", doc.documentElement.textContent)
-    return doc.documentElement.textContent
-  }
+  getEscapedContent = content => {
+    console.log('getEscapedContent input', content);
+    let doc = new DomParser().parseFromString(
+      `<!DOCTYPE html><html><head></head><body>${content}</body></html>`,
+      'text/html',
+    );
+    console.log('getEscapedContent output', doc.documentElement.textContent);
+    return doc.documentElement.textContent;
+  };
 }
 
 function mapStateToProps(state) {
-  const { backgroundColor, typeRead, fontSize, fontFamily, distanceRow } = state.settingUI;
+  const {backgroundColor, typeRead, fontSize, fontFamily, distanceRow} =
+    state.settingUI;
   return {
     backgroundColor,
     typeRead,
     fontSize,
     fontFamily,
-    distanceRow
+    distanceRow,
   };
 }
 
 const mapDispatchToProps = {
-  changeBackgroundColor, changeTypeRead, changeFontSize, changeFontFamily, changeDistanceRow
+  changeBackgroundColor,
+  changeTypeRead,
+  changeFontSize,
+  changeFontFamily,
+  changeDistanceRow,
 };
 
-export default NewsDetail
-
+export default NewsDetail;
