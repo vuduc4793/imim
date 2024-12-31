@@ -301,6 +301,7 @@ class MLMLawScreen extends React.PureComponent {
     let data;
     if (keyword === '') {
       data = await realm.objects(schema).sorted('id');
+      console.log('🚀 ~ MLMLawScreen ~ getData= ~ data:', data);
     } else {
       data = await realm
         .objects(schema)
@@ -310,15 +311,20 @@ class MLMLawScreen extends React.PureComponent {
         );
       console.log('textForSearch = ' + keyword);
     }
-    let dataFromRealm = Array.prototype.slice.call(
-      data,
-      startIndex,
-      startIndex + ITEM_PER_LOADING,
-    );
-    console.log('AgentNotice dataList', JSON.stringify(dataFromRealm));
-    console.log('startIndex= ' + startIndex);
+    // let dataFromRealm = Array.prototype.slice.call(
+    //   data,
+    //   startIndex,
+    //   startIndex + ITEM_PER_LOADING,
+    // );
+
+    let dataFromRealm = [];
+    for (let p of data) {
+      dataFromRealm.push(p);
+    }
+    // console.log('AgentNotice dataList', JSON.stringify(dataFromRealm));
+    // console.log('startIndex= ' + startIndex);
     this.setState({
-      dataList: dataList.concat(dataFromRealm),
+      dataList: dataFromRealm,
       isLoading: false,
     });
   };

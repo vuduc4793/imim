@@ -317,11 +317,10 @@ class QAndAScreen extends React.PureComponent {
           '*' + nonAccentVietnamese(keyword) + '*',
         );
     }
-    let dataFromRealm = Array.prototype.slice.call(
-      data,
-      startIndex,
-      startIndex + ITEM_PER_LOADING,
-    );
+    let dataFromRealm = []
+    for (let p of data) {
+      dataFromRealm.push(p);
+    }
     let plainDataFromRealm = [];
     dataFromRealm.forEach((item, index) => {
       let plainData = JSON.parse(JSON.stringify(item));

@@ -182,6 +182,7 @@ class MLMCompanyList extends React.PureComponent {
   }
 
   renderContent = () => {
+    console.log("this.state.companyList", this.state.companyList)
     return (
       <View style={{flex: 1}}>
         {/* {
@@ -353,10 +354,12 @@ class MLMCompanyList extends React.PureComponent {
                 var result = obj['soap:Envelope']['soap:Body']['VccaListDNBHDCResponse']['VccaListDNBHDCResult']
                 result = `[${result}]`
                 let data = JSON.parse(result)
+                console.log("🚀 ~ MLMCompanyList ~ getListCompany ~ data:", data)
+                
                 this.setState({
                   companyListFull: data,
                 })
-                this.filterListWithKeyword(keyword)
+                this.filterListWithKeyword(keyword, data)
           }
         }).catch(err => {
           console.log('getListCompany getData error', err);
@@ -368,14 +371,13 @@ class MLMCompanyList extends React.PureComponent {
     
   }
 
-  filterListWithKeyword = (keyword) => {
+  filterListWithKeyword = (keyword, data) => {
     keyword = Utils.nonAccentVietnamese(keyword)
     console.log("filterListWithKeyword 364", keyword)
     let {companyListFull} = this.state;
-    console.log("companyListFull", companyListFull)
     if (!keyword) {
       this.setState({
-        companyList: companyListFull ,
+        companyList: data?.length > 0 ? data : companyListFull,
         isLoading: false
       })
       return;

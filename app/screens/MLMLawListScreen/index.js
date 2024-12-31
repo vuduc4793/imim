@@ -64,6 +64,7 @@ class MLMLawListScreen extends React.PureComponent {
           let data;
           if (keyword === '') {
             data = realm.objects(LAW_DOC_INFO_SCHEMA);
+            console.log("🚀 ~ MLMLawListScreen ~ this.setState ~ data:", data)
           }
           let dataList = [];
           for (let p of data) {
@@ -74,6 +75,7 @@ class MLMLawListScreen extends React.PureComponent {
             );
             dataList.push(p);
           }
+            console.log("🚀 ~ MLMLawListScreen ~ this.setState ~ dataList:", dataList)
 
           this.setState({
             data: dataList,
